@@ -21,7 +21,7 @@
 │   │   └── CommandParser.cpp
 │   ├── /esp/                        # ESP8266 firmware and bridge logic
 │   │   ├── main.ino
-│   │   └── /web_ui/                 # Optional web-based UI for ESP
+│   │   └── /web_ui/                 # Optional web-based UI for ESP (placeholder)
 │   └── /shared/                     # Shared headers between Due and ESP
 │       └── commands.h
 
@@ -44,7 +44,7 @@
 │   │   └── ddsctl.py
 │   ├── /config/                     # Saved presets and settings
 │   │   └── presets.json
-│   ├── /test_tools/                 # Diagnostic tools and local emulators
+│   ├── /test_tools/                 # Diagnostic tools and local emulators (placeholder)
 │   └── /docs/                       # PC-side help and user guide
 │       └── user_manual.md
 
@@ -62,10 +62,25 @@
 │   │   ├── storage_map.md
 │   │   ├── pc_ui_mockups.md
 │   │   └── menu_navigation.md
+│   ├── impl/                       # Implementation notes per module
+│   │   ├── DDSDriver.md
+│   │   └── ...
 │   └── prompts/                    # Generated prompts per agent
 │       ├── firmware_agent/
 │       ├── pc_agent/
 │       ├── esp_agent/
 │       ├── storage_agent/
 │       └── ...
+
+├── /dev_tools/                     # Example programs and development helpers
+│   ├── commandparser_example.cpp
+│   └── ddsdriver_example.cpp
+
+├── /tests/                         # Automated test suites
+│   ├── cli/
+│   ├── firmware/
+│   └── gui/
+
+├── /logs/                          # Root audit logs
+│   └── *.md
 

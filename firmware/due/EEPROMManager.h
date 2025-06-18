@@ -3,11 +3,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-
-
-#define EEPROM_I2C_ADDRESS 0x50
-#define EEPROM_FREQ_ADDR 0x0000
-#define EEPROM_WAVEFORM_ADDR 0x0004
+#include "EEPROMMap.h"
 
 class EEPROMManager {
 public:

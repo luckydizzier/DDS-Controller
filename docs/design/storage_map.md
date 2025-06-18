@@ -11,18 +11,20 @@ This document defines the structured storage layout for non-volatile memory used
 
 ## 🧩 Memory Regions
 
-| Offset (hex) | Size (bytes) | Description                  | Access      |
-| ------------ | ------------ | ---------------------------- | ----------- |
-| 0x0000       | 64           | Project identifier + version | R           |
-| 0x0040       | 128          | Preset 1                     | R/W         |
-| 0x00C0       | 128          | Preset 2                     | R/W         |
-| 0x0140       | 128          | Preset 3                     | R/W         |
-| 0x01C0       | 128          | Preset 4                     | R/W         |
-| 0x0240       | 128          | Preset 5                     | R/W         |
-| 0x02C0       | 64           | Default boot config          | R/W         |
-| 0x0300       | 128          | Menu UI settings             | R/W         |
-| 0x0380       | 256          | Reserved for expansion       | R/W         |
-| 0x0480       | 4096         | EEPROM ring buffer (logging) | Append-Only |
+The table below reflects the finalized layout for the 24LC256. Ranges are given in hexadecimal and use little endian encoding.
+
+| Range (hex)    | Size (bytes) | Type          | Description                          |
+| -------------- | ------------ | ------------- | ------------------------------------ |
+| 0x0000-0x0003  | 4            | `uint32_t`    | Output frequency (Hz)                |
+| 0x0004         | 1            | `uint8_t`     | Waveform ID                          |
+| 0x0005         | 1            | `uint8_t`     | Settings version ID                  |
+| 0x0006-0x00FF  | 250          | —             | Reserved for future config fields    |
+| 0x0100-0x017F  | 128          | `Preset`      | Preset slot 1                        |
+| 0x0180-0x01FF  | 128          | `Preset`      | Preset slot 2                        |
+| 0x0200-0x027F  | 128          | `Preset`      | Preset slot 3                        |
+| 0x0280-0x02FF  | 128          | `Preset`      | Preset slot 4                        |
+| 0x0300-0x037F  | 128          | `Preset`      | Preset slot 5                        |
+| 0x0380-0x7FFF  | 31,872       | —             | Reserved for additional presets/profiles |
 
 ## 📖 Encoding Format
 

@@ -1,1 +1,26 @@
-### Examples
+### GET current DDS frequency
+GET http://localhost:8080/dds/frequency
+
+### POST set DDS frequency
+POST http://localhost:8080/dds/frequency
+Content-Type: application/json
+
+{
+  "frequency": 12500000
+}
+
+### GET all EEPROM presets
+GET http://localhost:8080/presets
+
+### POST save new preset
+POST http://localhost:8080/presets
+Content-Type: application/json
+
+{
+  "name": "test_signal",
+  "frequency": 1000000,
+  "waveform": "sine"
+}
+
+### DELETE preset by name
+DELETE http://localhost:8080/presets/test_signal

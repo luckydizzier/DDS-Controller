@@ -32,6 +32,9 @@ def main():
 
     with serial.Serial(args.port, 115200, timeout=2) as ser:
         if args.cmd == "set-freq":
+            if args.freq <= 0:
+                print("ERR:BADFREQ")
+                return
             resp = send(ser, f"{CMD_SET_FREQ} {args.freq}")
         elif args.cmd == "get-freq":
             resp = send(ser, CMD_GET_FREQ)

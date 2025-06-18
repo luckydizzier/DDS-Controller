@@ -1,7 +1,11 @@
 #ifndef EEPROM_MAP_H
 #define EEPROM_MAP_H
 
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include "mocks/Arduino.h"
+#endif
 
 #define EEPROM_I2C_ADDRESS 0x50
 

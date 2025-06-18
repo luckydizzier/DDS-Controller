@@ -1,7 +1,11 @@
 // AD9850Driver.h
 #ifndef AD9850_DRIVER_H
 #define AD9850_DRIVER_H
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include "firmware/due/mocks/Arduino.h"
+#endif
 
 #define DDS_PIN_DATA   10
 #define DDS_PIN_W_CLK  11

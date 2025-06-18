@@ -2,8 +2,13 @@
 #ifndef MENUSYSTEM_H
 #define MENUSYSTEM_H
 
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <LiquidCrystal.h>
+#else
+#include "mocks/Arduino.h"
+#include "mocks/LiquidCrystal.h"
+#endif
 #include "ButtonManager.h"
 #include "EEPROMManager.h"
 #include "DDSDriver.h"
@@ -13,7 +18,6 @@ public:
     MenuSystem(LiquidCrystal& lcd, ButtonManager& buttons, EEPROMManager& eeprom, DDSDriver& dds);
     void update();
 
-private:
     enum MenuID {
         MAIN_MENU,
         FREQ_SETTINGS,
@@ -46,6 +50,7 @@ private:
         bool editable;
     };
 
+private:
     LiquidCrystal& lcd;
     ButtonManager& buttons;
     EEPROMManager& eeprom;

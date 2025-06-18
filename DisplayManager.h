@@ -1,8 +1,13 @@
 // DisplayManager.h
 #ifndef DISPLAY_MANAGER_H
 #define DISPLAY_MANAGER_H
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <LiquidCrystal.h>
+#else
+#include "firmware/due/mocks/Arduino.h"
+#include "firmware/due/mocks/LiquidCrystal.h"
+#endif
 
 #define LCD_PIN_RS 8
 #define LCD_PIN_EN 9

@@ -6,9 +6,9 @@ This report summarizes the latest attempt to measure unit test coverage for the 
 
 `go test ./... -coverprofile=coverage.out`
 
-Execution failed because the module dependencies (for the Fyne GUI) could not be downloaded in the current environment. The proxy blocked requests to `storage.googleapis.com` which hosts the modules.
+Both the original attempt and a second run on **2025‑06‑18 12:02 CEST** failed because the required modules (for the Fyne GUI) could not be downloaded. The proxy blocked requests to `storage.googleapis.com`.
 
-No coverage data was produced. A placeholder `coverage.out` file is kept for reference.
+As a result, `coverage.out` only contains the header line and the overall coverage reported by `go tool cover` is **0%**.
 
 ## Next Steps
 

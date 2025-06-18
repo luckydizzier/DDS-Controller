@@ -1,1 +1,0 @@
-This directory provides simple mock headers so the firmware modules can be compiled with a standard g++ toolchain. When building for Arduino, the normal Arduino headers are used. When ARDUINO is not defined, the build should include these mocks instead.

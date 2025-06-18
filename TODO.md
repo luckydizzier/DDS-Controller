@@ -1,4 +1,5 @@
 - [DONE] Execute project_structure.md and generate file structure
+- [DONE] Project structure cleanup following file audit
 - [TODO] (esp_agent) Create ESP8266 UART bridge skeleton
 - [IN_PROGRESS] (storage_agent) Implement EEPROMManager class
 - [TODO] (pc_agent) Plan Windows packaging workflow for Qt GUI

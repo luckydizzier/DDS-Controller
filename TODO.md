@@ -1,10 +1,10 @@
-- [IN_PROGRESS] (storage_agent) Implement EEPROMManager class
+- [DONE] (storage_agent) Implement EEPROMManager class
 - [IN_PROGRESS] (docs_agent) Maintain style guide and agent docs
 - [TODO] (root_agent) Keep structure spec in sync with repository
-- [IN_PROGRESS] (Stage 21, firmware_agent) Implement main loop in firmware/due/main.ino
-- [IN_PROGRESS] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
-- [IN_PROGRESS] (Stage 21, firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
-- [IN_PROGRESS] (Stage 21, docs_agent) Expand docs/impl/main.md and docs/impl/commands.md
+- [DONE] (Stage 21, firmware_agent) Implement main loop in firmware/due/main.ino
+- [DONE] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
+- [DONE] (Stage 21, firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
+- [DONE] (Stage 21, docs_agent) Expand docs/impl/main.md and docs/impl/commands.md
 - [TEST] (pc_agent) Add test for invalid frequency input in ddsctl
 - [TEST] (pc_agent) Add tests for preset-save and preset-load commands
 - [TEST] (firmware_agent) Test EEPROMManager read/write and preset functions

@@ -1,10 +1,9 @@
 # main.ino
 
-The `firmware/due/main.ino` sketch will initialise all firmware modules and run
-the main loop. At the moment it is only a placeholder. According to
-`docs/design/architecture_overview.md` the final version should:
+`firmware/due/main.ino` contains the Arduino Due entry point. The sketch initialises all firmware modules and starts the runtime loop used both for local control and for commands coming through the ESP8266 bridge.
 
-1. instantiate `DDSDriver`, `EEPROMManager`, `ButtonManager`, `MenuSystem` and
-   `CommandParser`;
-2. set up serial ports for USB and ESP8266 communication; and
-3. call `MenuSystem.update()` repeatedly inside `loop()`.
+During `setup()` it creates `LiquidCrystal`, `ButtonManager`, `EEPROMManager`, `DDSDriver`, `MenuSystem` and `CommandParser` objects. USB and UART serial ports are configured and the DDS output control pin is set to a safe state.
+
+The `loop()` function updates the menu system and checks the two serial ports for incoming commands. Each command is parsed by `CommandParser` and the response is sent back on the originating interface, enabling transparent USB or WiFi operation.
+
+Output on/off actions are handled via `MenuSystem` by toggling `OUTPUT_CONTROL_PIN`.

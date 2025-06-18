@@ -11,7 +11,11 @@ class FakeSerial:
     def readline(self):
         if b"SF" in self.last:
             return b"OK:SETFREQ\n"
-        return b"OK:FREQ 1000000\n"
+        if b"GF" in self.last:
+            return b"OK:FREQ 1000000\n"
+        if b"SAVE" in self.last or b"LOAD" in self.last:
+            return b"OK\n"
+        return b"OK\n"
     def __enter__(self):
         return self
     def __exit__(self, exc_type, exc, tb):
@@ -34,3 +38,21 @@ def test_get_freq(capsys, monkeypatch):
     ddsctl.main()
     out = capsys.readouterr().out.strip()
     assert 'OK:FREQ' in out
+
+def test_invalid_freq(capsys, monkeypatch):
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'set-freq', '-1'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert 'ERR:BADFREQ' in out
+
+def test_preset_save(capsys, monkeypatch):
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'preset-save', '1'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert out == 'OK'
+
+def test_preset_load(capsys, monkeypatch):
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'preset-load', '1'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert out == 'OK'

@@ -21,7 +21,7 @@
 │   │   └── CommandParser.cpp
 │   ├── /esp/                        # ESP8266 firmware and bridge logic
 │   │   ├── main.ino
-│   │   └── /web_ui/                 # Optional web-based UI for ESP (placeholder)
+│   │   └── /web_ui/                 # Optional web-based UI for ESP 
 │   └── /shared/                     # Shared headers between Due and ESP
 │       └── commands.h
 
@@ -44,7 +44,7 @@
 │   │   └── ddsctl.py
 │   ├── /config/                     # Saved presets and settings
 │   │   └── presets.json
-│   ├── /test_tools/                 # Diagnostic tools and local emulators (placeholder)
+│   ├── /test_tools/                 # Diagnostic tools and local emulators 
 │   └── /docs/                       # PC-side help and user guide
 │       └── user_manual.md
 

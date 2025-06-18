@@ -37,7 +37,7 @@ private:
         MenuID id;
         const char* label;
         MenuID parent;
-        MenuID children[3];
+        MenuID children[4];
         uint8_t childCount;
         bool editable;
     };

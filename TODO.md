@@ -1,7 +1,7 @@
 - [IN_PROGRESS] (storage_agent) Implement EEPROMManager class
 - [IN_PROGRESS] (docs_agent) Maintain style guide and agent docs
 - [TODO] (root_agent) Keep structure spec in sync with repository
-- [TODO] (firmware_agent) Implement main loop in firmware/due/main.ino
-- [TODO] (protocol_agent) Define shared command constants in firmware/shared/commands.h
-- [TODO] (firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
-- [TODO] (docs_agent) Expand docs/impl/main.md and docs/impl/commands.md
+- [IN_PROGRESS] (Stage 21, firmware_agent) Implement main loop in firmware/due/main.ino
+- [IN_PROGRESS] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
+- [IN_PROGRESS] (Stage 21, firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
+- [IN_PROGRESS] (Stage 21, docs_agent) Expand docs/impl/main.md and docs/impl/commands.md

@@ -1,10 +1,9 @@
 # ddsctl Implementation
 
-`ddsctl.py` is a very small CLI wrapper used for quick testing of the ASCII
-command protocol from a PC. It currently supports only `setfreq` and `getfreq`
-commands and prints simple text responses.
+`ddsctl.py` is a command line helper for sending ASCII commands over a serial
+port. The script now includes sub‑commands for setting and reading the
+frequency, as well as saving and loading presets.
 
-The tool is described in `docs/design/pc_ui_mockups.md` and shares the same
-command set as the GUI. In a full implementation it would open the serial port,
-validate the command via `protocol/ascii/validator.py` and display the firmware
-response.
+The tool is described in `docs/design/pc_ui_mockups.md` and shares the command
+set with the GUI. It opens the serial port using `pyserial`, sends the chosen
+command, waits for one line of response and prints it.

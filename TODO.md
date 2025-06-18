@@ -1,5 +1,5 @@
 - [DONE] (storage_agent) Implement EEPROMManager class
-- [IN_PROGRESS] (docs_agent) Maintain style guide and agent docs
+- [DONE] (docs_agent) Maintain style guide and agent docs (see docs/progress/2025-06-18_16-55_root_agent_remediation.md)
 - [DONE] (root_agent) Keep structure spec in sync with repository (see docs/progress/2025-06-18_08-24_structure_sync.md)
 - [DONE] (Stage 21, firmware_agent) Implement main loop in firmware/due/main.ino
 - [DONE] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
@@ -11,3 +11,6 @@
 - [DISPATCHED] (firmware_agent) Expand CommandParser coverage for all commands – see docs/prompts/firmware_agent/2025-06-18_13-20_firmware_tests.md
 - [DISPATCHED] (firmware_agent) Verify MenuSystem actions for OUTPUT_ON and OUTPUT_OFF – see docs/prompts/firmware_agent/2025-06-18_13-20_firmware_tests.md
 - [DISPATCHED] (pc_agent) Add GUI tests for Set and Read button callbacks – see docs/prompts/pc_agent/2025-06-18_13-25_cli_gui_tests.md
+- [TODO] (pc_agent) Provide offline stubs for GUI tests or skip them in CI (see docs/progress/2025-06-18_11-20_test_coverage_report.md)
+- [TODO] (docs_agent) Document firmware/due/mocks usage and limitations (README)
+- [TODO] (test_coverage_agent) Audit untested modules and design coverage plan (see docs/reports/incomplete_implementations.md)

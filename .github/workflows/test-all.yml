@@ -1,0 +1,35 @@
+name: Test All
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential catch2 libgl1-mesa-dev
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest || { echo "pip install failed: network access required"; exit 1; }
+      - name: Download Go modules
+        run: |
+          cd tests/gui
+          go mod download || { echo "go mod download failed: network access required"; exit 1; }
+      - name: Run all tests
+        run: make test_all

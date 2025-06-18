@@ -7,3 +7,4 @@
 - [TODO] (docs_agent) Maintain style guide and agent docs
 - [TODO] (root_agent) Keep structure spec in sync with repository
 - [TODO] (timeline_agent) Record initial version history
+- [DONE] (root_agent) Add GitHub Actions workflow for automated testing

@@ -5,3 +5,9 @@
 - [IN_PROGRESS] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
 - [IN_PROGRESS] (Stage 21, firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
 - [IN_PROGRESS] (Stage 21, docs_agent) Expand docs/impl/main.md and docs/impl/commands.md
+- [TEST] (pc_agent) Add test for invalid frequency input in ddsctl
+- [TEST] (pc_agent) Add tests for preset-save and preset-load commands
+- [TEST] (firmware_agent) Test EEPROMManager read/write and preset functions
+- [TEST] (firmware_agent) Expand CommandParser coverage for all commands
+- [TEST] (firmware_agent) Verify MenuSystem actions for OUTPUT_ON and OUTPUT_OFF
+- [TEST] (pc_agent) Add GUI tests for Set and Read button callbacks

@@ -31,12 +31,12 @@ This document defines the protocol layers used in the DDS-Controller project. Th
 
 * Simple ASCII command format:
 
-  ````
-  SETFREQ 1000000\n
-  GETFREQ\n
-  STATUS\n
-  SAVE\n  ```
-  ````
+````
+SF 1000000\n
+GF\n
+STATUS\n
+SAVE\n  ```
+````
 * Commands are case-insensitive, line-terminated with `\n`
 * Responses follow deterministic text structure
 
@@ -63,7 +63,7 @@ This document defines the protocol layers used in the DDS-Controller project. Th
 
 ### Control Flow Example:
 
-1. `ddsctl.py` sends `SETFREQ 1000000` over USB
+1. `ddsctl.py` sends `SF 1000000` over USB
 2. Arduino parses and updates DDS
 3. Response `OK\n` sent back
 4. ESP can also query status via UART proxy

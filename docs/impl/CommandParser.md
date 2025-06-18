@@ -9,7 +9,7 @@ interfaces and applies them to `DDSDriver` and `EEPROMManager`.
 - `handleCommand(const String& cmd)` – executes a command and returns the
   firmware response string.
 
-Supported commands now include `SETFREQ`, `GETFREQ`, `SETWAVE`, `GETWAVE`,
+Supported commands now include `SF`, `GF`, `SW`, `GW`,
 `SAVE`, `LOAD`, `STATUS` and `VERSION`. Parsing is case-sensitive and relies on
 `std::strtoul` for numeric conversion. Responses use the `OK:`/`ERR:` scheme
 from the command specification.

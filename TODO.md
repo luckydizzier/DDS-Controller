@@ -3,3 +3,7 @@
 - [TODO] (esp_agent) Create ESP8266 UART bridge skeleton
 - [IN_PROGRESS] (storage_agent) Implement EEPROMManager class
 - [TODO] (pc_agent) Plan Windows packaging workflow for Qt GUI
+- [TODO] (firmware_agent) Flesh out DDSDriver and CommandParser
+- [TODO] (docs_agent) Maintain style guide and agent docs
+- [TODO] (root_agent) Keep structure spec in sync with repository
+- [TODO] (timeline_agent) Record initial version history

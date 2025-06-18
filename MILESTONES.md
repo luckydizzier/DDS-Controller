@@ -8,3 +8,4 @@
 - [DISPATCHED] ESP protocol implementation ([log](docs/progress/2025-06-18_16-31-18_root_agent_dispatch_esp_protocol.md))
 - [x] ~~Web UI~~ *(canceled)* ([note](docs/progress/2025-06-18_10-33_placeholder_audit.md))
 - [x] EEPROM preset handling ([log](docs/progress/2025-06-18_07-42-12_firmware_agent_presets.md))
+- [PLANNED] Milestone v0.4.0 kickoff – expand remote control, web UI and testing

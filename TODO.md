@@ -20,3 +20,14 @@
 - [DISPATCHED] (firmware_agent) Finalize firmware logs and report status
 - [DISPATCHED] (esp_agent) Provide update on ESP protocol milestone
 - [DONE] (root_agent) Summarize project closure in docs/reports/release_summary_v0.3.0.md
+
+- [DISPATCHED] (root_agent) Kick off milestone v0.4.0 planning
+- [DISPATCHED] (esp_agent) Implement bidirectional serial protocol and WiFi config
+- [DISPATCHED] (protocol_agent) Define command bridge and heartbeat messages
+- [DISPATCHED] (firmware_agent) Integrate ESP bridge with Arduino Due
+- [DISPATCHED] (ui_agent) Host minimal Web UI for real-time DDS control
+- [DISPATCHED] (docs_agent) Document Web UI and ESP configuration
+- [DISPATCHED] (test_coverage_agent) Add integration tests for firmware-ESP loop
+- [DISPATCHED] (pc_agent) Stub ESP responses and extend GUI unit tests
+- [DISPATCHED] (timeline_agent) Record coverage progress and version tags
+- [DISPATCHED] (docs_agent) Prepare CHANGELOG.md for v0.4.0

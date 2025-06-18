@@ -49,13 +49,25 @@ const Item MENU[] = {
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
     // SYSTEM_MENU
     {ID::SYSTEM_MENU, "Rendszer", ID::MAIN_MENU,
-        {ID::SHOW_VERSION, ID::RESET_DEFAULTS, ID::EXIT_MENU, ID::MAIN_MENU}, 3, false},
+        {ID::SHOW_VERSION, ID::RESET_DEFAULTS, ID::PRESET_MENU, ID::EXIT_MENU}, 4, false},
     // SHOW_VERSION
     {ID::SHOW_VERSION, "Firmware", ID::SYSTEM_MENU,
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
     // RESET_DEFAULTS
     {ID::RESET_DEFAULTS, "Alap\xE9rt\xE9k", ID::SYSTEM_MENU,
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
+    // PRESET_MENU
+    {ID::PRESET_MENU, "Presetek", ID::SYSTEM_MENU,
+        {ID::PRESET_SAVE, ID::PRESET_LOAD, ID::PRESET_DELETE, ID::SYSTEM_MENU}, 3, false},
+    // PRESET_SAVE
+    {ID::PRESET_SAVE, "Ment\xE9s Presetbe", ID::PRESET_MENU,
+        {ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU}, 0, true},
+    // PRESET_LOAD
+    {ID::PRESET_LOAD, "Bet\xF6lt\xE9s Preset", ID::PRESET_MENU,
+        {ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU}, 0, true},
+    // PRESET_DELETE
+    {ID::PRESET_DELETE, "T\xF6rl\xE9s Preset", ID::PRESET_MENU,
+        {ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU}, 0, true},
     // EXIT_MENU
     {ID::EXIT_MENU, "Kil\xE9p\xE9s", ID::SYSTEM_MENU,
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
@@ -64,8 +76,6 @@ const Item MENU[] = {
 
 constexpr size_t MENU_COUNT = sizeof(MENU) / sizeof(MENU[0]);
 
-bool editing = false;
-uint32_t editValue = 0;
 constexpr uint32_t FREQ_MIN = 1;
 constexpr uint32_t FREQ_MAX = 40000000UL;
 constexpr uint32_t FREQ_STEP = 1000;
@@ -81,8 +91,10 @@ inline const Item &getItem(ID id) { return MENU[static_cast<int>(id)]; }
 MenuSystem::MenuSystem(LiquidCrystal &lcdRef, ButtonManager &btns,
                        EEPROMManager &eep, DDSDriver &drv)
     : lcd(lcdRef), buttons(btns), eeprom(eep), dds(drv) {
-  freq = eeprom.readFreq();
+  freq = eeprom.loadFrequency();
+  waveform = eeprom.loadWaveform();
   dds.setFrequency(freq);
+  dds.setWaveform(waveform);
   current = ID::FREQ_SETTINGS; // start at first submenu
   lcd.begin(16, 2);
   display();
@@ -103,23 +115,49 @@ void MenuSystem::update() {
 // ---------------------------------------------------------------------------
 
 void MenuSystem::navigate() {
-  if (editing) {
-    if (buttons.isPressed(BUTTON_LEFT)) {
-      if (editValue >= FREQ_MIN + FREQ_STEP)
-        editValue -= FREQ_STEP;
-      else
-        editValue = FREQ_MIN;
-    }
-    if (buttons.isPressed(BUTTON_RIGHT)) {
-      if (editValue <= FREQ_MAX - FREQ_STEP)
-        editValue += FREQ_STEP;
-      else
-        editValue = FREQ_MAX;
-    }
-    if (buttons.wasReleased(BUTTON_SELECT)) {
-      editing = false;
-      freq = editValue;
-      dds.setFrequency(freq);
+  if (editContext != EditContext::NONE) {
+    if (editContext == EditContext::FREQ) {
+      if (buttons.isPressed(BUTTON_LEFT)) {
+        if (editValue >= FREQ_MIN + FREQ_STEP)
+          editValue -= FREQ_STEP;
+        else
+          editValue = FREQ_MIN;
+      }
+      if (buttons.isPressed(BUTTON_RIGHT)) {
+        if (editValue <= FREQ_MAX - FREQ_STEP)
+          editValue += FREQ_STEP;
+        else
+          editValue = FREQ_MAX;
+      }
+      if (buttons.wasReleased(BUTTON_SELECT)) {
+        freq = editValue;
+        dds.setFrequency(freq);
+        editContext = EditContext::NONE;
+      }
+    } else {
+      if (buttons.wasReleased(BUTTON_UP)) {
+        editPresetId = (editPresetId >= EEPROM_PRESET_COUNT) ? 1 : editPresetId + 1;
+      }
+      if (buttons.wasReleased(BUTTON_DOWN)) {
+        editPresetId = (editPresetId <= 1) ? EEPROM_PRESET_COUNT : editPresetId - 1;
+      }
+      if (buttons.wasReleased(BUTTON_SELECT)) {
+        if (editContext == EditContext::PRESET_SAVE) {
+          eeprom.savePreset(editPresetId, freq, waveform);
+        } else if (editContext == EditContext::PRESET_LOAD) {
+          uint32_t f = freq;
+          uint8_t w = waveform;
+          eeprom.loadPreset(editPresetId, f, w);
+          freq = f;
+          waveform = w;
+          dds.setFrequency(freq);
+          dds.setWaveform(waveform);
+        } else if (editContext == EditContext::PRESET_DELETE) {
+          eeprom.deletePreset(editPresetId);
+        }
+        editContext = EditContext::NONE;
+        current = ID::PRESET_MENU;
+      }
     }
     return;
   }
@@ -157,8 +195,19 @@ void MenuSystem::navigate() {
   // Enter child or run action -------------------------------------------
   if (buttons.wasReleased(BUTTON_SELECT)) {
     if (item.editable) {
-      editing = true;
-      editValue = freq;
+      if (item.id == ID::FREQ_EDIT) {
+        editContext = EditContext::FREQ;
+        editValue = freq;
+      } else if (item.id == ID::PRESET_SAVE) {
+        editContext = EditContext::PRESET_SAVE;
+        editPresetId = 1;
+      } else if (item.id == ID::PRESET_LOAD) {
+        editContext = EditContext::PRESET_LOAD;
+        editPresetId = 1;
+      } else if (item.id == ID::PRESET_DELETE) {
+        editContext = EditContext::PRESET_DELETE;
+        editPresetId = 1;
+      }
       return;
     }
     if (item.childCount > 0) {
@@ -176,20 +225,23 @@ void MenuSystem::navigate() {
 void MenuSystem::applyAction(MenuID action) {
   switch (action) {
   case FREQ_SAVE:
-    eeprom.writeFreq(freq);
+    eeprom.saveFrequency(freq);
     break;
   case FREQ_LOAD:
-    freq = eeprom.readFreq();
+    freq = eeprom.loadFrequency();
     dds.setFrequency(freq);
     break;
   case WAVE_SINE:
-    dds.setWaveform(0);
+    waveform = 0;
+    dds.setWaveform(waveform);
     break;
   case WAVE_SQUARE:
-    dds.setWaveform(1);
+    waveform = 1;
+    dds.setWaveform(waveform);
     break;
   case WAVE_TRIANGLE:
-    dds.setWaveform(2);
+    waveform = 2;
+    dds.setWaveform(waveform);
     break;
   case OUTPUT_ON:
     // placeholder for output enable
@@ -227,12 +279,21 @@ void MenuSystem::display() {
 
   lcd.setCursor(0, 1);
   lcd.print("> ");
-  if (editing) {
-    lcd.print(editValue);
-    lcd.print(" Hz");
+  if (editContext != EditContext::NONE) {
+    if (editContext == EditContext::FREQ) {
+      lcd.print(editValue);
+      lcd.print(" Hz");
+    } else {
+      lcd.print("ID: ");
+      lcd.print(editPresetId);
+    }
   } else if (item.editable) {
-    lcd.print(freq);
-    lcd.print(" Hz");
+    if (item.id == ID::FREQ_EDIT) {
+      lcd.print(freq);
+      lcd.print(" Hz");
+    } else {
+      lcd.print(item.label);
+    }
   } else {
     lcd.print(item.label);
   }

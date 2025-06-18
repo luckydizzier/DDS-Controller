@@ -2,7 +2,7 @@
 
 This project uses several specialized agents that collaborate through files and prompts. Below is a brief summary of their roles.
 
-- **root_agent** – coordinates all other agents and approves milestone progression.
+- **root_agent** – enforces documentation presence and alignment with project structure. Triggers updates for every undocumented source file and version gap.
 - **firmware_agent** – maintains Arduino Due firmware under `firmware/due/`.
 - **esp_agent** – handles ESP8266 firmware in `firmware/esp/`.
 - **protocol_agent** – defines communication formats within `protocol/`.
@@ -10,7 +10,7 @@ This project uses several specialized agents that collaborate through files and 
 - **storage_agent** – manages EEPROM layout and persistence logic.
 - **validation_agent** – enforces value ranges and command correctness.
 - **config_agent** – supplies default system presets.
-- **docs_agent** – keeps documentation up to date in `docs/`.
+- **docs_agent** – responsible for real-time documentation of all modules and logic. Audits progress and updates logs. Documents all newly created code components automatically.
 - **structure_agent** – applies `docs/design/project_structure.md`.
 - **timeline_agent** – logs progress to `docs/progress/` and maintains `docs/versions/`.
 

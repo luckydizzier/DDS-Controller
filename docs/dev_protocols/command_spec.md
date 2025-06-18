@@ -24,13 +24,12 @@ Each command is transmitted as a single ASCII line, terminated with a newline ch
 
 ### 🔹 Control Commands
 
-| Command   | Args                | Description                                   |
-| --------- | ------------------- | --------------------------------------------- |
-| `SETFREQ` | `<Hz>`              | Set output frequency (e.g. `SETFREQ 1000000`) |
-| `GETFREQ` | –                   | Query current frequency setting               |
-| `SETWAVE` | `SIN`\|`TRI`\|`SQR` | Set waveform shape                            |
-| `GETWAVE` | –                   | Return current waveform                       |
-| `RESET`   | –                   | Reset DDS to default state                    |
+| Command | Args   | Description                                   |
+| ------- | ------ | --------------------------------------------- |
+| `SF`    | `<Hz>` | Set output frequency (e.g. `SF 1000000`)      |
+| `GF`    | –      | Query current frequency setting               |
+| `SW`    | `0|1|2` | Set waveform index (0=sine,1=triangle,2=square) |
+| `GW`    | –      | Return current waveform index                 |
 
 ### 🔹 Storage Commands
 
@@ -59,14 +58,14 @@ All responses follow this convention:
 ### ✅ Example
 
 ```
-SETFREQ 5000000\n
+SF 5000000\n
 → OK:SETFREQ
 
-GETFREQ\n
+GF\n
 → OK:FREQ 5000000
 
-GETWAVE\n
-→ OK:WAVE SIN
+GW\n
+→ OK:WAVE 1
 ```
 
 ---

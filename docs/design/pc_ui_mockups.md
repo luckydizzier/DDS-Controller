@@ -19,7 +19,7 @@ A minimal terminal application for low-level testing, scripting, and serial comm
 /dev/ttyACM0
 /dev/ttyUSB0
 
-> ddsctl send "SETFREQ 14500000"
+> ddsctl set-freq 14500000
 ✅ Acknowledged
 
 > ddsctl read-state
@@ -74,7 +74,7 @@ WAVE=SINE
 
 Each button/action in the UI corresponds to a predefined command in `protocol/ascii/command_format.md`, and is validated by `protocol/ascii/validator.py` before being sent.
 
-* `Set` → `SETFREQ <value>`
+* `Set` → `SF <value>`
 * `Waveform dropdown` → `SETWAVE <type>`
 * `Write Settings` → `SAVE`
 * `Load Settings` → `LOAD`

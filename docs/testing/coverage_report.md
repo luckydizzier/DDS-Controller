@@ -1,9 +1,13 @@
 # Test Coverage Report
 
-The initial test suite covers basic functionality across firmware, CLI and GUI layers.
+The test suite covers firmware logic and the PC tools. Short command handling
+is verified across all layers.
 
-- **Firmware**: simple unit tests for `DDSDriver`, `CommandParser` and `MenuSystem` (approx. 30% of lines).
-- **CLI**: `ddsctl` command parsing using mocked serial communication.
-- **GUI**: window interaction through Fyne test utilities with a mock `SerialBridge`.
+- **Firmware**: unit tests for `DDSDriver`, `CommandParser` and `MenuSystem`
+  (around 30% line coverage).
+- **CLI**: `ddsctl` command parsing with mocked serial communication (new tests
+  ensure `SF` and `GF` work).
+- **GUI**: Fyne-based window interaction using a mock `SerialBridge`; these tests
+  currently fail to run in CI due to blocked module downloads.
 
 Known edge cases such as EEPROM failures and invalid menu navigation remain untested for now.

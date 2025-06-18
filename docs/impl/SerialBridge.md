@@ -1,9 +1,11 @@
 # SerialBridge Implementation
 
-`SerialBridge.go` provides minimal helpers for opening a serial port from the Go
-GUI. It wraps the `tarm/serial` package and currently exposes only the
-`openPort(name, baud)` function which returns a `serial.Port` object.
+`SerialBridge.go` now defines a `SerialBridge` struct that wraps the
+`tarm/serial` package. It manages the port handle with a small mutex and offers
+three methods:
 
-The bridge will be used by `MainWindow.go` to forward commands to the Arduino Due
-using the ASCII protocol defined in `docs/dev_protocols/command_spec.md`. The
-implementation is still a placeholder without error handling or message parsing.
+- `Open(name, baud)` – open the serial device.
+- `Close()` – close if open.
+- `Send(cmd)` – write a line and read the response.
+
+This is used by the GUI to interact with the firmware reliably.

@@ -1,18 +1,20 @@
 # CommandParser Implementation
 
-`CommandParser` provides a tiny ASCII command handler for the Arduino firmware.
-It is used by both the USB and ESP8266 serial interfaces.
+`CommandParser` interprets ASCII commands coming from the USB or ESP8266
+interfaces and applies them to `DDSDriver` and `EEPROMManager`.
 
 ## API
-- `begin(DDSDriver&, EEPROMManager&)` – stores pointers to the driver and EEPROM
-  helpers used by the parser.
-- `handleCommand(const String& cmd)` – interprets a single line without the
-  newline character.
+- `begin(DDSDriver&, EEPROMManager&)` – stores pointers to the driver and
+  EEPROM helpers used by the parser.
+- `handleCommand(const String& cmd)` – executes a command and returns the
+  firmware response string.
 
-The implementation currently supports `SETFREQ` and `GETFREQ` as defined in
-`docs/dev_protocols/command_spec.md`. Additional commands can be added following
-that specification. All parsing is case-sensitive and relies on `std::strtoul`
-for numeric conversion.
+Supported commands now include `SETFREQ`, `GETFREQ`, `SETWAVE`, `GETWAVE`,
+`SAVE`, `LOAD`, `STATUS` and `VERSION`. Parsing is case-sensitive and relies on
+`std::strtoul` for numeric conversion. Responses use the `OK:`/`ERR:` scheme
+from the command specification.
+
+See `dev_tools/commandparser_example.cpp` for a usage snippet.
 
 Progress logs `2025-06-18_16-55_root_agent_remediation.md` mention the initial
 stub creation.

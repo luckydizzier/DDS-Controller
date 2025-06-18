@@ -1,10 +1,15 @@
 # MainWindow Implementation
 
-`pc/gui/MainWindow.go` contains the entry point for the planned Go/Fyne based
-GUI. The current version only opens a window with a static label, but the design
-in `docs/design/pc_ui_mockups.md` shows the intended layout with frequency
-controls, waveform selection and serial port management.
+`pc/gui/MainWindow.go` provides a small Fyne application for interacting with
+the firmware over USB. It now exposes basic widgets to set and read the
+frequency and waveform using `SerialBridge`.
 
-Future work will connect to `SerialBridge.go` for USB communication and mirror
-the same commands defined for the CLI tool. The window is created via
-`fyne.io/fyne/v2/app` and uses standard Fyne widgets.
+## Features
+
+- Port entry and connect button (defaults to `/dev/ttyACM0`).
+- Frequency and waveform controls with `Set` and `Read` actions.
+- Live status labels showing the last response from the firmware.
+
+The application relies on `SerialBridge.go` for communication. The mock-ups in
+`docs/design/pc_ui_mockups.md` served as reference for this initial
+implementation.

@@ -12,7 +12,7 @@
 class CommandParser {
 public:
     void begin(DDSDriver& d, EEPROMManager& e);
-    void handleCommand(const String& cmd);
+    String handleCommand(const String& cmd);
 
 private:
     DDSDriver* dds = nullptr;

@@ -1,13 +1,13 @@
 - [DONE] (storage_agent) Implement EEPROMManager class
 - [IN_PROGRESS] (docs_agent) Maintain style guide and agent docs
-- [TODO] (root_agent) Keep structure spec in sync with repository
+- [DONE] (root_agent) Keep structure spec in sync with repository (see docs/progress/2025-06-18_08-24_structure_sync.md)
 - [DONE] (Stage 21, firmware_agent) Implement main loop in firmware/due/main.ino
 - [DONE] (Stage 21, protocol_agent) Define shared command constants in firmware/shared/commands.h
 - [DONE] (Stage 21, firmware_agent) Handle OUTPUT_ON and OUTPUT_OFF in MenuSystem.cpp
 - [DONE] (Stage 21, docs_agent) Expand docs/impl/main.md and docs/impl/commands.md
-- [TEST] (pc_agent) Add test for invalid frequency input in ddsctl
-- [TEST] (pc_agent) Add tests for preset-save and preset-load commands
-- [TEST] (firmware_agent) Test EEPROMManager read/write and preset functions
-- [TEST] (firmware_agent) Expand CommandParser coverage for all commands
-- [TEST] (firmware_agent) Verify MenuSystem actions for OUTPUT_ON and OUTPUT_OFF
-- [TEST] (pc_agent) Add GUI tests for Set and Read button callbacks
+- [DISPATCHED] (pc_agent) Add test for invalid frequency input in ddsctl – see docs/prompts/pc_agent/2025-06-18_13-25_cli_gui_tests.md
+- [DISPATCHED] (pc_agent) Add tests for preset-save and preset-load commands – see docs/prompts/pc_agent/2025-06-18_13-25_cli_gui_tests.md
+- [DISPATCHED] (firmware_agent) Test EEPROMManager read/write and preset functions – see docs/prompts/firmware_agent/2025-06-18_13-20_firmware_tests.md
+- [DISPATCHED] (firmware_agent) Expand CommandParser coverage for all commands – see docs/prompts/firmware_agent/2025-06-18_13-20_firmware_tests.md
+- [DISPATCHED] (firmware_agent) Verify MenuSystem actions for OUTPUT_ON and OUTPUT_OFF – see docs/prompts/firmware_agent/2025-06-18_13-20_firmware_tests.md
+- [DISPATCHED] (pc_agent) Add GUI tests for Set and Read button callbacks – see docs/prompts/pc_agent/2025-06-18_13-25_cli_gui_tests.md

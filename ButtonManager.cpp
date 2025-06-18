@@ -29,8 +29,10 @@ bool ButtonManager::wasReleased(ButtonCode code) {
 
 ButtonCode ButtonManager::readButton() {
   int val = analogRead(BUTTON_PIN);
-  if (val < 50)   return BUTTON_SELECT;
+  if (val < 60)   return BUTTON_RIGHT;
   if (val < 200)  return BUTTON_UP;
   if (val < 400)  return BUTTON_DOWN;
+  if (val < 600)  return BUTTON_LEFT;
+  if (val < 800)  return BUTTON_SELECT;
   return BUTTON_NONE;
 }

@@ -1,12 +1,26 @@
 import re
+from .constants import (
+    CMD_SET_FREQ,
+    CMD_GET_FREQ,
+    CMD_SET_WAVE,
+    CMD_GET_WAVE,
+    CMD_OUTPUT_ON,
+    CMD_OUTPUT_OFF,
+    CMD_SAVE,
+    CMD_LOAD,
+    CMD_DELETE,
+)
 
 VALID_COMMANDS = {
-    "SETFREQ": r"^SETFREQ\s+\d{1,10}$",
-    "GETFREQ": r"^GETFREQ$",
-    "SETPRESET": r"^SETPRESET\s+[a-zA-Z0-9_]{1,20}$",
-    "GETPRESETS": r"^GETPRESETS$",
-    "DELETEPRESET": r"^DELETEPRESET\s+[a-zA-Z0-9_]{1,20}$",
-    "SAVE": r"^SAVE$"
+    CMD_SET_FREQ: rf"^{CMD_SET_FREQ}\s+\d{{1,10}}$",
+    CMD_GET_FREQ: rf"^{CMD_GET_FREQ}$",
+    CMD_SET_WAVE: rf"^{CMD_SET_WAVE}\s+[0-2]$",
+    CMD_GET_WAVE: rf"^{CMD_GET_WAVE}$",
+    CMD_OUTPUT_ON: rf"^{CMD_OUTPUT_ON}$",
+    CMD_OUTPUT_OFF: rf"^{CMD_OUTPUT_OFF}$",
+    CMD_SAVE: rf"^{CMD_SAVE}(\s+\d{{1,2}})?$",
+    CMD_LOAD: rf"^{CMD_LOAD}(\s+\d{{1,2}})?$",
+    CMD_DELETE: rf"^{CMD_DELETE}\s+\d{{1,2}}$",
 }
 
 def validate_command(cmd: str) -> bool:
@@ -25,3 +39,4 @@ if __name__ == "__main__":
             print("✅ Valid command")
         else:
             print("❌ Invalid command")
+

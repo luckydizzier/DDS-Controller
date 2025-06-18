@@ -93,6 +93,7 @@ This project follows a **file-driven agent-based development model**, coordinate
 - `docs/prompts/` – Directory for per-agent prompt requests
 - `docs/progress/` – All timestamped execution logs
 - `docs/versions/` – Version history based on milestone results
+- `.github/workflows/` – CI workflows for automated testing
 
 ---
 

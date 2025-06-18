@@ -15,7 +15,7 @@ int main() {
     EEPROMManager e;
     CommandParser p;
     p.begin(d, e);
-    assert(p.handleCommand("SETFREQ 12345") == "OK:SETFREQ");
+    assert(p.handleCommand("SF 12345") == "OK:SETFREQ");
     assert(d.getFrequency() == 12345u);
 
     LiquidCrystal lcd(0,0,0,0,0,0);

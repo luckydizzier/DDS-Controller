@@ -9,7 +9,7 @@ class FakeSerial:
     def write(self, data):
         self.last = data
     def readline(self):
-        if b"SETFREQ" in self.last:
+        if b"SF" in self.last:
             return b"OK:SETFREQ\n"
         return b"OK:FREQ 1000000\n"
     def __enter__(self):

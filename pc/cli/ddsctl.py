@@ -2,6 +2,9 @@
 import argparse
 import serial
 
+CMD_SET_FREQ = "SF"
+CMD_GET_FREQ = "GF"
+
 
 def send(port, cmd):
     port.write((cmd + "\n").encode())
@@ -29,9 +32,9 @@ def main():
 
     with serial.Serial(args.port, 115200, timeout=2) as ser:
         if args.cmd == "set-freq":
-            resp = send(ser, f"SETFREQ {args.freq}")
+            resp = send(ser, f"{CMD_SET_FREQ} {args.freq}")
         elif args.cmd == "get-freq":
-            resp = send(ser, "GETFREQ")
+            resp = send(ser, CMD_GET_FREQ)
         elif args.cmd == "preset-save":
             resp = send(ser, f"SAVE {args.slot}")
         else:  # preset-load

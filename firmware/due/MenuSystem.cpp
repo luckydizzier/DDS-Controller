@@ -66,10 +66,11 @@ constexpr size_t MENU_COUNT = sizeof(MENU) / sizeof(MENU[0]);
 
 bool editing = false;
 uint32_t editValue = 0;
+constexpr uint32_t FREQ_MIN = 1;
+constexpr uint32_t FREQ_MAX = 40000000UL;
+constexpr uint32_t FREQ_STEP = 1000;
 
-inline const Item& getItem(ID id) {
-    return MENU[static_cast<int>(id)];
-}
+inline const Item &getItem(ID id) { return MENU[static_cast<int>(id)]; }
 
 } // namespace
 
@@ -77,13 +78,14 @@ inline const Item& getItem(ID id) {
 // Constructor
 // ---------------------------------------------------------------------------
 
-MenuSystem::MenuSystem(LiquidCrystal& lcdRef, ButtonManager& btns, EEPROMManager& eep, DDSDriver& drv)
+MenuSystem::MenuSystem(LiquidCrystal &lcdRef, ButtonManager &btns,
+                       EEPROMManager &eep, DDSDriver &drv)
     : lcd(lcdRef), buttons(btns), eeprom(eep), dds(drv) {
-    freq = eeprom.readFreq();
-    dds.setFrequency(freq);
-    current = ID::FREQ_SETTINGS; // start at first submenu
-    lcd.begin(16, 2);
-    display();
+  freq = eeprom.readFreq();
+  dds.setFrequency(freq);
+  current = ID::FREQ_SETTINGS; // start at first submenu
+  lcd.begin(16, 2);
+  display();
 }
 
 // ---------------------------------------------------------------------------
@@ -91,9 +93,9 @@ MenuSystem::MenuSystem(LiquidCrystal& lcdRef, ButtonManager& btns, EEPROMManager
 // ---------------------------------------------------------------------------
 
 void MenuSystem::update() {
-    buttons.update();
-    navigate();
-    display();
+  buttons.update();
+  navigate();
+  display();
 }
 
 // ---------------------------------------------------------------------------
@@ -101,64 +103,70 @@ void MenuSystem::update() {
 // ---------------------------------------------------------------------------
 
 void MenuSystem::navigate() {
-    if (editing) {
-        if (buttons.isPressed(BUTTON_LEFT) && editValue > 0) {
-            editValue--;
-        }
-        if (buttons.isPressed(BUTTON_RIGHT)) {
-            editValue++;
-        }
-        if (buttons.wasReleased(BUTTON_SELECT)) {
-            editing = false;
-            freq = editValue;
-            dds.setFrequency(freq);
-        }
-        return;
+  if (editing) {
+    if (buttons.isPressed(BUTTON_LEFT)) {
+      if (editValue >= FREQ_MIN + FREQ_STEP)
+        editValue -= FREQ_STEP;
+      else
+        editValue = FREQ_MIN;
     }
-
-    const Item& item = getItem(current);
-
-    // Navigate within siblings --------------------------------------------
-    if (buttons.wasReleased(BUTTON_UP) || buttons.wasReleased(BUTTON_DOWN)) {
-        ID parent = item.parent;
-        const Item& p = getItem(parent);
-        if (p.childCount > 0) {
-            int index = 0;
-            for (; index < p.childCount; ++index) {
-                if (p.children[index] == item.id)
-                    break;
-            }
-            if (buttons.wasReleased(BUTTON_UP)) {
-                index = (index == 0) ? p.childCount - 1 : index - 1;
-            } else {
-                index = (index >= p.childCount - 1) ? 0 : index + 1;
-            }
-            current = p.children[index];
-            return;
-        }
+    if (buttons.isPressed(BUTTON_RIGHT)) {
+      if (editValue <= FREQ_MAX - FREQ_STEP)
+        editValue += FREQ_STEP;
+      else
+        editValue = FREQ_MAX;
     }
-
-    // Go to parent ---------------------------------------------------------
-    if (buttons.wasReleased(BUTTON_LEFT)) {
-        if (item.parent != item.id) {
-            current = item.parent;
-        }
-        return;
-    }
-
-    // Enter child or run action -------------------------------------------
     if (buttons.wasReleased(BUTTON_SELECT)) {
-        if (item.editable) {
-            editing = true;
-            editValue = freq;
-            return;
-        }
-        if (item.childCount > 0) {
-            current = item.children[0];
-            return;
-        }
-        applyAction(item.id);
+      editing = false;
+      freq = editValue;
+      dds.setFrequency(freq);
     }
+    return;
+  }
+
+  const Item &item = getItem(current);
+
+  // Navigate within siblings --------------------------------------------
+  if (buttons.wasReleased(BUTTON_UP) || buttons.wasReleased(BUTTON_DOWN)) {
+    ID parent = item.parent;
+    const Item &p = getItem(parent);
+    if (p.childCount > 0) {
+      int index = 0;
+      for (; index < p.childCount; ++index) {
+        if (p.children[index] == item.id)
+          break;
+      }
+      if (buttons.wasReleased(BUTTON_UP)) {
+        index = (index == 0) ? p.childCount - 1 : index - 1;
+      } else {
+        index = (index >= p.childCount - 1) ? 0 : index + 1;
+      }
+      current = p.children[index];
+      return;
+    }
+  }
+
+  // Go to parent ---------------------------------------------------------
+  if (buttons.wasReleased(BUTTON_LEFT)) {
+    if (item.parent != item.id) {
+      current = item.parent;
+    }
+    return;
+  }
+
+  // Enter child or run action -------------------------------------------
+  if (buttons.wasReleased(BUTTON_SELECT)) {
+    if (item.editable) {
+      editing = true;
+      editValue = freq;
+      return;
+    }
+    if (item.childCount > 0) {
+      current = item.children[0];
+      return;
+    }
+    applyAction(item.id);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -166,39 +174,39 @@ void MenuSystem::navigate() {
 // ---------------------------------------------------------------------------
 
 void MenuSystem::applyAction(MenuID action) {
-    switch (action) {
-    case FREQ_SAVE:
-        eeprom.writeFreq(freq);
-        break;
-    case FREQ_LOAD:
-        freq = eeprom.readFreq();
-        dds.setFrequency(freq);
-        break;
-    case WAVE_SINE:
-        dds.setWaveform(0);
-        break;
-    case WAVE_SQUARE:
-        dds.setWaveform(1);
-        break;
-    case WAVE_TRIANGLE:
-        dds.setWaveform(2);
-        break;
-    case OUTPUT_ON:
-        // placeholder for output enable
-        break;
-    case OUTPUT_OFF:
-        // placeholder for output disable
-        break;
-    case RESET_DEFAULTS:
-        freq = 1000000;
-        dds.setFrequency(freq);
-        break;
-    case EXIT_MENU:
-        current = MAIN_MENU;
-        break;
-    default:
-        break;
-    }
+  switch (action) {
+  case FREQ_SAVE:
+    eeprom.writeFreq(freq);
+    break;
+  case FREQ_LOAD:
+    freq = eeprom.readFreq();
+    dds.setFrequency(freq);
+    break;
+  case WAVE_SINE:
+    dds.setWaveform(0);
+    break;
+  case WAVE_SQUARE:
+    dds.setWaveform(1);
+    break;
+  case WAVE_TRIANGLE:
+    dds.setWaveform(2);
+    break;
+  case OUTPUT_ON:
+    // placeholder for output enable
+    break;
+  case OUTPUT_OFF:
+    // placeholder for output disable
+    break;
+  case RESET_DEFAULTS:
+    freq = 1000000;
+    dds.setFrequency(freq);
+    break;
+  case EXIT_MENU:
+    current = MAIN_MENU;
+    break;
+  default:
+    break;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -206,26 +214,26 @@ void MenuSystem::applyAction(MenuID action) {
 // ---------------------------------------------------------------------------
 
 void MenuSystem::display() {
-    lcd.clear();
-    const Item& item = getItem(current);
+  lcd.clear();
+  const Item &item = getItem(current);
+  const Item &parent = getItem(item.parent);
 
-    if (item.parent != item.id) {
-        lcd.setCursor(0, 0);
-        lcd.print(getItem(item.parent).label);
-    } else {
-        lcd.setCursor(0, 0);
-        lcd.print(item.label);
-    }
+  lcd.setCursor(0, 0);
+  if (item.id == MAIN_MENU) {
+    lcd.print(item.label);
+  } else {
+    lcd.print(parent.label);
+  }
 
-    lcd.setCursor(0, 1);
-    if (editing) {
-        lcd.print(editValue);
-        lcd.print(" Hz");
-    } else if (item.editable) {
-        lcd.print(freq);
-        lcd.print(" Hz");
-    } else {
-        lcd.print(item.label);
-    }
+  lcd.setCursor(0, 1);
+  lcd.print("> ");
+  if (editing) {
+    lcd.print(editValue);
+    lcd.print(" Hz");
+  } else if (item.editable) {
+    lcd.print(freq);
+    lcd.print(" Hz");
+  } else {
+    lcd.print(item.label);
+  }
 }
-

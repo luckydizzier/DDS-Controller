@@ -19,3 +19,4 @@
 - [DISPATCHED] (pc_agent) Confirm final CLI/GUI test coverage
 - [DISPATCHED] (firmware_agent) Finalize firmware logs and report status
 - [DISPATCHED] (esp_agent) Provide update on ESP protocol milestone
+- [DONE] (root_agent) Summarize project closure in docs/reports/release_summary_v0.3.0.md

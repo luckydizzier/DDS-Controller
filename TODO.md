@@ -31,3 +31,4 @@
 - [DISPATCHED] (pc_agent) Stub ESP responses and extend GUI unit tests
 - [DISPATCHED] (timeline_agent) Record coverage progress and version tags
 - [DISPATCHED] (docs_agent) Prepare CHANGELOG.md for v0.4.0
+- [DISPATCHED] (timeline_agent) Log milestone v0.4.0 kickoff

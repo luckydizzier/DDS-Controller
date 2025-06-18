@@ -1,1 +1,2 @@
 - [IN_PROGRESS] Execute project_structure.md and generate file structure
+- [TODO] (pc_agent) Plan Windows packaging workflow for Qt GUI

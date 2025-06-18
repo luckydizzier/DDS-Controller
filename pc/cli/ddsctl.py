@@ -2,8 +2,12 @@
 import argparse
 import serial
 
-CMD_SET_FREQ = "SF"
-CMD_GET_FREQ = "GF"
+from protocol.ascii.constants import (
+    CMD_SET_FREQ,
+    CMD_GET_FREQ,
+    CMD_SAVE,
+    CMD_LOAD,
+)
 
 
 def send(port, cmd):
@@ -39,9 +43,9 @@ def main():
         elif args.cmd == "get-freq":
             resp = send(ser, CMD_GET_FREQ)
         elif args.cmd == "preset-save":
-            resp = send(ser, f"SAVE {args.slot}")
+            resp = send(ser, f"{CMD_SAVE} {args.slot}")
         else:  # preset-load
-            resp = send(ser, f"LOAD {args.slot}")
+            resp = send(ser, f"{CMD_LOAD} {args.slot}")
 
         print(resp)
 

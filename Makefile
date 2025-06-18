@@ -17,13 +17,28 @@ clean:
 
 # Unit test targets
 
-test_firmware: tests/firmware/test_ddsdriver
+test_firmware: tests/firmware/test_ddsdriver \
+ tests/firmware/test_eeprommanager \
+ tests/firmware/test_commandparser \
+ tests/firmware/test_menusystem
 
 tests/firmware/test_ddsdriver: $(SRCS) tests/firmware/test_ddsdriver.cpp
-	$(CXX) $(CXXFLAGS) -I/usr/include/catch2 -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+tests/firmware/test_eeprommanager: $(SRCS) tests/firmware/test_eeprommanager.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+tests/firmware/test_commandparser: $(SRCS) tests/firmware/test_commandparser.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+tests/firmware/test_menusystem: $(SRCS) tests/firmware/test_menusystem.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 run_firmware_tests: test_firmware
 	./tests/firmware/test_ddsdriver
+	./tests/firmware/test_eeprommanager
+	./tests/firmware/test_commandparser
+	./tests/firmware/test_menusystem
 
 .PHONY: test_cli
 

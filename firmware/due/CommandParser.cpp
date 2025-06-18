@@ -28,17 +28,35 @@ String CommandParser::handleCommand(const String& cmd) {
     if (cmd == CMD_GET_WAVE) {
         return String("OK:WAVE ") + std::to_string(dds->getWaveform());
     }
-    if (cmd == "SAVE") {
-        eeprom->saveFrequency(dds->getFrequency());
-        eeprom->saveWaveform(dds->getWaveform());
+    if (cmd.rfind(CMD_SAVE, 0) == 0) {
+        if (cmd.size() > strlen(CMD_SAVE)) {
+            uint8_t id = static_cast<uint8_t>(std::strtoul(cmd.substr(strlen(CMD_SAVE) + 1).c_str(), nullptr, 10));
+            eeprom->savePreset(id, dds->getFrequency(), dds->getWaveform());
+        } else {
+            eeprom->saveFrequency(dds->getFrequency());
+            eeprom->saveWaveform(dds->getWaveform());
+        }
         return "OK:SAVE";
     }
-    if (cmd == "LOAD") {
-        uint32_t f = eeprom->loadFrequency();
-        uint8_t w = eeprom->loadWaveform();
-        dds->setFrequency(f);
-        dds->setWaveform(w);
+    if (cmd.rfind(CMD_LOAD, 0) == 0) {
+        if (cmd.size() > strlen(CMD_LOAD)) {
+            uint8_t id = static_cast<uint8_t>(std::strtoul(cmd.substr(strlen(CMD_LOAD) + 1).c_str(), nullptr, 10));
+            uint32_t f = 0; uint8_t w = 0;
+            eeprom->loadPreset(id, f, w);
+            dds->setFrequency(f);
+            dds->setWaveform(w);
+        } else {
+            uint32_t f = eeprom->loadFrequency();
+            uint8_t w = eeprom->loadWaveform();
+            dds->setFrequency(f);
+            dds->setWaveform(w);
+        }
         return "OK:LOAD";
+    }
+    if (cmd.rfind(CMD_DELETE, 0) == 0) {
+        uint8_t id = static_cast<uint8_t>(std::strtoul(cmd.substr(strlen(CMD_DELETE) + 1).c_str(), nullptr, 10));
+        eeprom->deletePreset(id);
+        return "OK:DELETE";
     }
     if (cmd == "STATUS") {
         return String("OK:FREQ ") + std::to_string(dds->getFrequency()) +

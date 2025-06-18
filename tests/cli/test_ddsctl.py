@@ -9,11 +9,11 @@ class FakeSerial:
     def write(self, data):
         self.last = data
     def readline(self):
-        if b"SF" in self.last:
+        if constants.CMD_SET_FREQ.encode() in self.last:
             return b"OK:SETFREQ\n"
-        if b"GF" in self.last:
+        if constants.CMD_GET_FREQ.encode() in self.last:
             return b"OK:FREQ 1000000\n"
-        if b"SAVE" in self.last or b"LOAD" in self.last:
+        if constants.CMD_SAVE.encode() in self.last or constants.CMD_LOAD.encode() in self.last:
             return b"OK\n"
         return b"OK\n"
     def __enter__(self):
@@ -26,6 +26,7 @@ serial_stub.Serial = lambda *a, **k: FakeSerial()
 sys.modules['serial'] = serial_stub
 
 import pc.cli.ddsctl as ddsctl
+from protocol.ascii import constants
 
 def test_set_freq(capsys, monkeypatch):
     monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'set-freq', '100'])

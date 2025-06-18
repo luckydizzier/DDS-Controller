@@ -14,4 +14,9 @@
 #define CMD_OUTPUT_ON  "ON"
 #define CMD_OUTPUT_OFF "OFF"
 
+// Preset management
+#define CMD_SAVE   "SAVE"   // Save to EEPROM or preset slot
+#define CMD_LOAD   "LOAD"   // Load from EEPROM or preset slot
+#define CMD_DELETE "DELETE" // Delete preset slot
+
 #endif // SHARED_COMMANDS_H

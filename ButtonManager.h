@@ -9,7 +9,9 @@ enum ButtonCode {
   BUTTON_NONE,
   BUTTON_SELECT,
   BUTTON_UP,
-  BUTTON_DOWN
+  BUTTON_DOWN,
+  BUTTON_LEFT,
+  BUTTON_RIGHT
 };
 
 class ButtonManager {

@@ -30,6 +30,10 @@ private:
         SYSTEM_MENU,
         SHOW_VERSION,
         RESET_DEFAULTS,
+        PRESET_MENU,
+        PRESET_SAVE,
+        PRESET_LOAD,
+        PRESET_DELETE,
         EXIT_MENU
     };
 
@@ -48,7 +52,13 @@ private:
     DDSDriver& dds;
 
     MenuID current;
-    uint16_t freq;
+    uint32_t freq;
+    uint8_t waveform;
+
+    enum class EditContext { NONE, FREQ, PRESET_SAVE, PRESET_LOAD, PRESET_DELETE };
+    EditContext editContext = EditContext::NONE;
+    uint8_t editPresetId = 1;
+    uint32_t editValue = 0;
 
     void display();
     void navigate();

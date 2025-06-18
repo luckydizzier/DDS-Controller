@@ -33,6 +33,9 @@ This project follows a **file-driven agent-based development model**, coordinate
 
 ## 🧩 Active Agents
 
+### 🧭 `root_agent`
+- Enforces documentation presence and alignment with project structure. Triggers updates for every undocumented source file and version gap.
+
 ### ⚙️ `firmware_agent`
 - Implements the Arduino Due firmware:
   - `DDSDriver`, `MenuSystem`, `EEPROMManager`, `CommandParser`
@@ -67,8 +70,10 @@ This project follows a **file-driven agent-based development model**, coordinate
 - Handles default boot config, fallback values, and system presets
 
 ### 🧱 `docs_agent`
-- Generates Markdown documentation for structure, usage, and internal APIs
-- Builds `docs/dev_protocols/`, `docs/design/`, `docs/prompts/`
+- Responsible for real-time documentation of all modules and logic.
+- Audits progress and updates logs.
+- Documents all newly created code components automatically.
+- Builds `docs/dev_protocols/`, `docs/design/`, `docs/prompts/`.
 
 ### ⌨️ `structure_agent`
 - Executes the project file layout defined in `docs/design/proj.struct.md`

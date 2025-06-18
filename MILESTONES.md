@@ -1,6 +1,6 @@
 # Development Milestones
 
-- Initial structure setup
-- Basic module stubs implemented
-- Windows packaging for Qt GUI
-- Version history initiated
+- [x] Initial structure setup
+- [x] Basic module stubs implemented
+- [ ] Windows packaging for Qt GUI
+- [x] Version history initiated

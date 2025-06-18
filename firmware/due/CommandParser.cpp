@@ -1,5 +1,7 @@
 #include "CommandParser.h"
 #include <cstdlib>
+#include <cstring>
+#include "../shared/commands.h"
 
 void CommandParser::begin(DDSDriver& d, EEPROMManager& e) {
     dds = &d;
@@ -10,20 +12,20 @@ String CommandParser::handleCommand(const String& cmd) {
     if (!dds || !eeprom)
         return "ERR:NOT_INIT";
 
-    if (cmd.rfind("SETFREQ", 0) == 0) {
-        uint32_t val = std::strtoul(cmd.substr(7).c_str(), nullptr, 10);
+    if (cmd.rfind(CMD_SET_FREQ, 0) == 0) {
+        uint32_t val = std::strtoul(cmd.substr(strlen(CMD_SET_FREQ) + 1).c_str(), nullptr, 10);
         dds->setFrequency(val);
         return "OK:SETFREQ";
     }
-    if (cmd == "GETFREQ") {
+    if (cmd == CMD_GET_FREQ) {
         return String("OK:FREQ ") + std::to_string(dds->getFrequency());
     }
-    if (cmd.rfind("SETWAVE", 0) == 0) {
-        uint8_t wf = static_cast<uint8_t>(std::strtoul(cmd.substr(7).c_str(), nullptr, 10));
+    if (cmd.rfind(CMD_SET_WAVE, 0) == 0) {
+        uint8_t wf = static_cast<uint8_t>(std::strtoul(cmd.substr(strlen(CMD_SET_WAVE) + 1).c_str(), nullptr, 10));
         dds->setWaveform(wf);
         return "OK:SETWAVE";
     }
-    if (cmd == "GETWAVE") {
+    if (cmd == CMD_GET_WAVE) {
         return String("OK:WAVE ") + std::to_string(dds->getWaveform());
     }
     if (cmd == "SAVE") {

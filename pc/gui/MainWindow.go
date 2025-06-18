@@ -6,6 +6,13 @@ import (
     "fyne.io/fyne/v2/widget"
 )
 
+const (
+    cmdSetFreq = "SF"
+    cmdGetFreq = "GF"
+    cmdSetWave = "SW"
+    cmdGetWave = "GW"
+)
+
 func main() {
     a := app.New()
     w := a.NewWindow("DDS Controller")
@@ -33,15 +40,15 @@ func main() {
     currentWave := widget.NewLabel("Wave: -")
 
     setBtn := widget.NewButton("Set", func() {
-        bridge.Send("SETFREQ " + freqEntry.Text)
-        bridge.Send("SETWAVE " + waveSelect.Selected)
+        bridge.Send(cmdSetFreq + " " + freqEntry.Text)
+        bridge.Send(cmdSetWave + " " + waveSelect.Selected)
     })
 
     readBtn := widget.NewButton("Read", func() {
-        if resp, err := bridge.Send("GETFREQ"); err == nil {
+        if resp, err := bridge.Send(cmdGetFreq); err == nil {
             currentFreq.SetText(resp)
         }
-        if resp, err := bridge.Send("GETWAVE"); err == nil {
+        if resp, err := bridge.Send(cmdGetWave); err == nil {
             currentWave.SetText(resp)
         }
     })

@@ -1,8 +1,13 @@
 #ifndef EEPROM_MANAGER_H
 #define EEPROM_MANAGER_H
 
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <Wire.h>
+#else
+#include "mocks/Arduino.h"
+#include "mocks/Wire.h"
+#endif
 #include "EEPROMMap.h"
 
 class EEPROMManager {

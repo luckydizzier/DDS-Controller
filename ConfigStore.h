@@ -1,8 +1,13 @@
 // ConfigStore.h
 #ifndef CONFIG_STORE_H
 #define CONFIG_STORE_H
+#ifdef ARDUINO
 #include <Arduino.h>
 #include <Wire.h>
+#else
+#include "firmware/due/mocks/Arduino.h"
+#include "firmware/due/mocks/Wire.h"
+#endif
 
 #define EEPROM_ADDR_FREQ       0   // int32_t
 #define EEPROM_ADDR_WAVEFORM   4   // uint8_t

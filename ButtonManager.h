@@ -1,7 +1,11 @@
 // ButtonManager.h
 #ifndef BUTTON_MANAGER_H
 #define BUTTON_MANAGER_H
+#ifdef ARDUINO
 #include <Arduino.h>
+#else
+#include "firmware/due/mocks/Arduino.h"
+#endif
 
 #define BUTTON_PIN A0
 

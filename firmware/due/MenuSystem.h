@@ -13,6 +13,9 @@
 #include "EEPROMManager.h"
 #include "DDSDriver.h"
 
+// Digital pin used to enable or disable the DDS output
+#define OUTPUT_CONTROL_PIN 2
+
 class MenuSystem {
 public:
     MenuSystem(LiquidCrystal& lcd, ButtonManager& buttons, EEPROMManager& eeprom, DDSDriver& dds);

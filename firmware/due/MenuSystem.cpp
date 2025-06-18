@@ -244,10 +244,10 @@ void MenuSystem::applyAction(MenuID action) {
     dds.setWaveform(waveform);
     break;
   case OUTPUT_ON:
-    // placeholder for output enable
+    digitalWrite(OUTPUT_CONTROL_PIN, HIGH);
     break;
   case OUTPUT_OFF:
-    // placeholder for output disable
+    digitalWrite(OUTPUT_CONTROL_PIN, LOW);
     break;
   case RESET_DEFAULTS:
     freq = 1000000;

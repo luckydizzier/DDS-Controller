@@ -14,3 +14,8 @@
 - [DONE] (pc_agent) Provide offline stubs for GUI tests or skip them in CI (see docs/progress/2025-06-18_12-38-06_pc_agent_gui_test_stub.md)
 - [DISPATCHED] (docs_agent) Document firmware/due/mocks usage and limitations (README)
 - [DISPATCHED] (test_coverage_agent) Audit untested modules and design coverage plan (see docs/reports/incomplete_implementations.md)
+- [DISPATCHED] (timeline_agent) Confirm final sync state and update version history if needed (see docs/progress/2025-06-18_17-07-02_root_agent_final_sync.md)
+- [DISPATCHED] (task_agent) Verify TODO statuses after sync
+- [DISPATCHED] (pc_agent) Confirm final CLI/GUI test coverage
+- [DISPATCHED] (firmware_agent) Finalize firmware logs and report status
+- [DISPATCHED] (esp_agent) Provide update on ESP protocol milestone

@@ -48,35 +48,50 @@ func main() {
 	freqEntry := widget.NewEntry()
 	freqEntry.SetText("1000000")
 	waveSelect := widget.NewSelect([]string{"0", "1", "2"}, func(string) {})
-	waveSelect.SetSelected("0")
+       waveSelect.SetSelected("0")
 
-	currentFreq := widget.NewLabel("Freq: -")
-	currentWave := widget.NewLabel("Wave: -")
+       currentFreq := widget.NewLabel("Freq: -")
+       currentWave := widget.NewLabel("Wave: -")
+       cfgLabel := widget.NewLabel("")
 
-	setBtn := widget.NewButton("Set", func() {
-		bridge.Send(cmdSetFreq + " " + freqEntry.Text)
-		bridge.Send(cmdSetWave + " " + waveSelect.Selected)
-	})
+       setBtn := widget.NewButton("Set", func() {
+               bridge.Send(cmdSetFreq + " " + freqEntry.Text)
+               bridge.Send(cmdSetWave + " " + waveSelect.Selected)
+       })
 
 	readBtn := widget.NewButton("Read", func() {
 		if resp, err := bridge.Send(cmdGetFreq); err == nil {
 			currentFreq.SetText(resp)
 		}
-		if resp, err := bridge.Send(cmdGetWave); err == nil {
-			currentWave.SetText(resp)
-		}
-	})
+               if resp, err := bridge.Send(cmdGetWave); err == nil {
+                       currentWave.SetText(resp)
+               }
+       })
 
-	w.SetContent(container.NewVBox(
-		container.NewHBox(portEntry, connectBtn),
-		status,
-		espLabel,
+       otaBtn := widget.NewButton("OTA", func() {
+               bridge.Send("OTA")
+       })
+
+       cfgBtn := widget.NewButton("Config", func() {
+               out := ""
+               for k, v := range pins {
+                       out += fmt.Sprintf("%s=%s ", k, v)
+               }
+               cfgLabel.SetText(out)
+       })
+
+       w.SetContent(container.NewVBox(
+               container.NewHBox(portEntry, connectBtn),
+               status,
+               espLabel,
 		container.NewHBox(widget.NewLabel("Freq"), freqEntry),
 		container.NewHBox(widget.NewLabel("Wave"), waveSelect),
-		container.NewHBox(setBtn, readBtn),
-		currentFreq,
-		currentWave,
-	))
+               container.NewHBox(setBtn, readBtn),
+               container.NewHBox(otaBtn, cfgBtn),
+               currentFreq,
+               currentWave,
+               cfgLabel,
+       ))
 
 	w.ShowAndRun()
 }

@@ -59,3 +59,37 @@ def test_preset_load(capsys, monkeypatch):
     ddsctl.main()
     out = capsys.readouterr().out.strip()
     assert out == 'OK'
+
+
+def test_show_config(capsys, monkeypatch):
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
+    monkeypatch.setattr(ddsctl, 'load_pins', lambda path='config/pins.conf': {'A': '1'})
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', 'show-config'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert 'A=1' in out
+
+
+def test_edit_config(capsys, monkeypatch):
+    pins = {'A': '1'}
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
+    monkeypatch.setattr(ddsctl, 'load_pins', lambda path='config/pins.conf', p=pins: p.copy())
+    saved = {}
+    def fake_save(path, data):
+        saved.update(data)
+    monkeypatch.setattr(ddsctl, 'save_pins', fake_save)
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', 'edit-config', 'A', '2'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert saved['A'] == '2'
+    assert out == 'OK'
+
+
+def test_ota_upload(capsys, monkeypatch, tmp_path):
+    f = tmp_path / 'fw.bin'
+    f.write_text('x')
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', 'ota-upload', str(f)])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert 'OK:OTA' in out

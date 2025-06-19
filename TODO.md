@@ -37,3 +37,4 @@
 - [DISPATCHED] (ui_agent, pc_agent) Align Web UI controls with Qt GUI
 - [DONE] (root_agent) Final ESP+UI integration audit (see docs/progress/2025-06-19_root_audit_esp_ui.md)
 - [DONE] (timeline_agent) Milestone v0.4.0 summary dispatched (docs/reports/milestone_v0.4.0_summary.md)
+- [DONE] (pc_agent) OTA and config CLI/GUI support (see docs/progress/2025-06-19_09-00-00_pc_agent_ota_config.md)

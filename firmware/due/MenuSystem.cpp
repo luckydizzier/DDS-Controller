@@ -1,4 +1,9 @@
 #include "MenuSystem.h"
+#include "../shared/config/config.h"
+#include "../shared/commands.h"
+#ifdef USE_ESP
+#include "esp_protocol.h"
+#endif
 
 // ---------------------------------------------------------------------------
 // Local state
@@ -49,7 +54,7 @@ const Item MENU[] = {
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
     // SYSTEM_MENU
     {ID::SYSTEM_MENU, "Rendszer", ID::MAIN_MENU,
-        {ID::SHOW_VERSION, ID::RESET_DEFAULTS, ID::PRESET_MENU, ID::EXIT_MENU}, 4, false},
+        {ID::SHOW_VERSION, ID::RESET_DEFAULTS, ID::PRESET_MENU, ID::ESP_MENU}, 4, false},
     // SHOW_VERSION
     {ID::SHOW_VERSION, "Firmware", ID::SYSTEM_MENU,
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
@@ -68,6 +73,18 @@ const Item MENU[] = {
     // PRESET_DELETE
     {ID::PRESET_DELETE, "T\xF6rl\xE9s Preset", ID::PRESET_MENU,
         {ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU, ID::PRESET_MENU}, 0, true},
+    // ESP_MENU
+    {ID::ESP_MENU, "WiFi", ID::SYSTEM_MENU,
+        {ID::ESP_ON, ID::ESP_OFF, ID::ESP_STATUS, ID::SYSTEM_MENU}, 3, false},
+    // ESP_ON
+    {ID::ESP_ON, "ESP bekapcs", ID::ESP_MENU,
+        {ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU}, 0, false},
+    // ESP_OFF
+    {ID::ESP_OFF, "ESP kikapcs", ID::ESP_MENU,
+        {ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU}, 0, false},
+    // ESP_STATUS
+    {ID::ESP_STATUS, "ESP info", ID::ESP_MENU,
+        {ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU, ID::SYSTEM_MENU}, 0, false},
     // EXIT_MENU
     {ID::EXIT_MENU, "Kil\xE9p\xE9s", ID::SYSTEM_MENU,
         {ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU, ID::MAIN_MENU}, 0, false},
@@ -249,6 +266,17 @@ void MenuSystem::applyAction(MenuID action) {
   case OUTPUT_OFF:
     digitalWrite(OUTPUT_CONTROL_PIN, LOW);
     break;
+#ifdef USE_ESP
+  case ESP_ON:
+    esp_send(CMD_ESP_ON);
+    break;
+  case ESP_OFF:
+    esp_send(CMD_ESP_OFF);
+    break;
+  case ESP_STATUS:
+    esp_send(CMD_ESP_STATUS);
+    break;
+#endif
   case RESET_DEFAULTS:
     freq = 1000000;
     dds.setFrequency(freq);

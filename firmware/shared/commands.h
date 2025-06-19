@@ -19,4 +19,12 @@
 #define CMD_LOAD   "LOAD"   // Load from EEPROM or preset slot
 #define CMD_DELETE "DELETE" // Delete preset slot
 
+// ESP8266 control commands
+#define CMD_ESP_ON      "ESPON"
+#define CMD_ESP_OFF     "ESPOFF"
+#define CMD_ESP_STATUS  "ESPSTS"
+#define CMD_ESP_MODE    "ESPMODE"
+#define CMD_ESP_LED_ON  "ESPLEDON"
+#define CMD_ESP_LED_OFF "ESPLEDOFF"
+
 #endif // SHARED_COMMANDS_H

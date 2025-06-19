@@ -3,12 +3,13 @@
 #ifdef ARDUINO
 #include <Arduino.h>
 #endif
+#include "../shared/config/pins.h"
 
-// Default pin mapping for AD9850 module
-static constexpr int PIN_WCLK  = 10;
-static constexpr int PIN_FQUD  = 11;
-static constexpr int PIN_DATA  = 12;
-static constexpr int PIN_RESET = 13;
+// Pin mapping for AD9850 module comes from config
+static constexpr int PIN_WCLK  = PIN_DDS_WCLK;
+static constexpr int PIN_FQUD  = PIN_DDS_FQUD;
+static constexpr int PIN_DATA  = PIN_DDS_DATA;
+static constexpr int PIN_RESET = PIN_DDS_RESET;
 
 void DDSDriver::begin() {
 #ifdef ARDUINO

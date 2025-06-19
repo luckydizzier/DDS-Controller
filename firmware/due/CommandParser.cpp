@@ -2,6 +2,10 @@
 #include <cstdlib>
 #include <cstring>
 #include "../shared/commands.h"
+#include "../shared/config/config.h"
+#ifdef USE_ESP
+#include "esp_protocol.h"
+#endif
 
 void CommandParser::begin(DDSDriver& d, EEPROMManager& e) {
     dds = &d;
@@ -58,6 +62,36 @@ String CommandParser::handleCommand(const String& cmd) {
         eeprom->deletePreset(id);
         return "OK:DELETE";
     }
+#ifdef USE_ESP
+    if (cmd == CMD_ESP_ON) {
+        esp_send(CMD_ESP_ON);
+        return "OK:ESPON";
+    }
+    if (cmd == CMD_ESP_OFF) {
+        esp_send(CMD_ESP_OFF);
+        return "OK:ESPOFF";
+    }
+    if (cmd == CMD_ESP_STATUS) {
+        esp_send(CMD_ESP_STATUS);
+        return "OK:REQ";
+    }
+    if (cmd.rfind(CMD_ESP_MODE, 0) == 0) {
+        esp_send(cmd);
+        return "OK:MODE";
+    }
+    if (cmd == CMD_ESP_LED_ON) {
+        digitalWrite(PIN_ESP_LED, HIGH);
+        return "OK:LEDON";
+    }
+    if (cmd == CMD_ESP_LED_OFF) {
+        digitalWrite(PIN_ESP_LED, LOW);
+        return "OK:LEDOFF";
+    }
+#else
+    if (cmd.rfind("ESP", 0) == 0) {
+        return "ERR:ESP_DISABLED";
+    }
+#endif
     if (cmd == "STATUS") {
         return String("OK:FREQ ") + std::to_string(dds->getFrequency()) +
                " WAVE " + std::to_string(dds->getWaveform());

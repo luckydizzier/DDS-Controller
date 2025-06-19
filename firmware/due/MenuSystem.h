@@ -13,8 +13,10 @@
 #include "EEPROMManager.h"
 #include "DDSDriver.h"
 
+#include "../shared/config/pins.h"
+
 // Digital pin used to enable or disable the DDS output
-#define OUTPUT_CONTROL_PIN 2
+#define OUTPUT_CONTROL_PIN PIN_OUTPUT_CONTROL
 
 class MenuSystem {
 public:
@@ -41,7 +43,11 @@ public:
         PRESET_SAVE,
         PRESET_LOAD,
         PRESET_DELETE,
-        EXIT_MENU
+        EXIT_MENU,
+        ESP_MENU,
+        ESP_ON,
+        ESP_OFF,
+        ESP_STATUS
     };
 
     struct MenuItem {

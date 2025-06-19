@@ -1,2 +1,23 @@
 mode: set
-# attempt 2025-06-18 12:02
+gui_test/fyne_stub/test/test.go:7.47,7.64 1 1
+gui_test/fyne_stub/test/test.go:8.47,8.67 1 1
+gui_test/fyne_stub/test/test.go:9.48,9.49 0 1
+gui_test/fyne_stub/test/test.go:13.47,13.48 0 1
+gui_test/fyne_stub/test/test.go:15.28,16.23 1 1
+gui_test/fyne_stub/test/test.go:16.23,18.3 1 1
+gui_test/fyne_stub/widget/widget.go:5.35,5.54 1 1
+gui_test/fyne_stub/widget/widget.go:6.35,6.49 1 1
+gui_test/fyne_stub/widget/widget.go:8.32,8.58 1 1
+gui_test/fyne_stub/widget/widget.go:12.35,12.49 1 1
+gui_test/fyne_stub/widget/widget.go:14.53,16.2 1 1
+gui_test/fyne_stub/test/test.go:7.47,7.64 1 0
+gui_test/fyne_stub/test/test.go:8.47,8.67 1 0
+gui_test/fyne_stub/test/test.go:9.48,9.49 0 0
+gui_test/fyne_stub/test/test.go:13.47,13.48 0 0
+gui_test/fyne_stub/test/test.go:15.28,16.23 1 0
+gui_test/fyne_stub/test/test.go:16.23,18.3 1 0
+gui_test/fyne_stub/widget/widget.go:5.35,5.54 1 0
+gui_test/fyne_stub/widget/widget.go:6.35,6.49 1 0
+gui_test/fyne_stub/widget/widget.go:8.32,8.58 1 0
+gui_test/fyne_stub/widget/widget.go:12.35,12.49 1 0
+gui_test/fyne_stub/widget/widget.go:14.53,16.2 1 0

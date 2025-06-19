@@ -23,6 +23,14 @@ int main() {
     assert(p.handleCommand("STATUS").find("OK:FREQ") != std::string::npos);
     assert(p.handleCommand("VERSION") == "OK:VERSION 0.0.1");
     assert(p.handleCommand("BAD") == "ERR:INVALID_COMMAND");
+
+    assert(p.handleCommand("EON") == "OK:ESPON");
+    assert(p.handleCommand("EOF") == "OK:ESPOFF");
+    assert(p.handleCommand("EST") == "OK:REQ");
+    assert(p.handleCommand("EVR") == "OK:REQ");
+    assert(p.handleCommand("EMD STA") == "OK:MODE");
+    assert(p.handleCommand("EL1") == "OK:LEDON");
+    assert(p.handleCommand("EL0") == "OK:LEDOFF");
     return 0;
 }
 

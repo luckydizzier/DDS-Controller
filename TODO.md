@@ -23,7 +23,7 @@
 
 - [DISPATCHED] (root_agent) Kick off milestone v0.4.0 planning
 - [DISPATCHED] (esp_agent) Implement bidirectional serial protocol and WiFi config
-- [DISPATCHED] (protocol_agent) Define command bridge and heartbeat messages
+- [DONE] (protocol_agent) Define command bridge and heartbeat messages (see docs/progress/2025-06-18_20-45_protocol_agent_esp_commands.md)
 - [DISPATCHED] (firmware_agent) Integrate ESP bridge with Arduino Due
 - [DISPATCHED] (ui_agent) Host minimal Web UI for real-time DDS control
 - [DISPATCHED] (docs_agent) Document Web UI and ESP configuration

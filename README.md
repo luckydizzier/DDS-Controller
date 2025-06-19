@@ -11,6 +11,11 @@ The project is fully documented in `docs/` and follows the architecture describe
 - Configuration stored in 24LC256 EEPROM
 - Cross-platform CLI and experimental GUI tools
 
+Pin assignments and OTA usage are documented in
+[`docs/configuration/pins.md`](docs/configuration/pins.md) and
+[`docs/configuration/ota.md`](docs/configuration/ota.md). All peripherals,
+except the LCD shield, must use Arduino pins 20 and above.
+
 ## Directory Overview
 
 - `firmware/` – Arduino Due and ESP8266 source code

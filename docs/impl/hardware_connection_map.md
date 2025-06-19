@@ -4,7 +4,9 @@ This file lists the recommended wiring between the Arduino Due, AD9850, and ESP8
 
 See also:
 - `docs/config/pins.conf` – editable pin assignments
+- `docs/configuration/pins.md` – reference table
 - `docs/impl/ota_update.md` – OTA flashing procedure
+- `docs/configuration/ota.md` – brief OTA notes
 
 | Peripheral | Signal | Due Pin |
 |------------|-------|--------|

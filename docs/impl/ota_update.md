@@ -9,3 +9,4 @@ Steps:
 4. The Arduino Due should avoid toggling GPIO0 during the upload.
 
 See also `docs/guides/ota_esp8266.md` for a walkthrough.
+Quick reference: [`docs/configuration/ota.md`](../configuration/ota.md)

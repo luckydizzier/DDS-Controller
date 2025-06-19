@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DDS Vezérlő</title>
+  <style>
+    body { font-family: sans-serif; margin: 1em; }
+    table { border-collapse: collapse; }
+    th, td { padding: 4px; border: 1px solid #999; }
+  </style>
+</head>
+<body>
+  <h1>DDS WiFi vezérlés</h1>
+  <div id="status">Állapot lekérése...</div>
+  <table id="pins"></table>
+  <button id="refresh">Frissítés</button>
+<script>
+async function fetchJson(url, options) {
+  const r = await fetch(url, options);
+  return r.json();
+}
+async function load() {
+  const cfg = await fetchJson('/api/config');
+  const pinData = await fetchJson('/api/pins');
+  document.getElementById('status').textContent =
+    'WiFi: ' + (cfg.USE_ESP ? 'bekapcsolva' : 'kikapcsolva') +
+    ', OTA: ' + (cfg.USE_ESP_OTA ? 'elérhető' : 'tiltva');
+  const tbl = document.getElementById('pins');
+  tbl.innerHTML = '';
+  for (const [k,v] of Object.entries(pinData)) {
+    const row = document.createElement('tr');
+    row.innerHTML = `<td>${k}</td><td>${v}</td>`;
+    tbl.appendChild(row);
+  }
+}
+async function refreshPins() {
+  await load();
+}
+ document.getElementById('refresh').onclick = refreshPins;
+ load();
+</script>
+</body>
+</html>

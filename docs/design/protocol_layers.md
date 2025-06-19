@@ -68,6 +68,13 @@ SAVE\n  ```
 3. Response `OK\n` sent back
 4. ESP can also query status via UART proxy
 
+### UART Bridge Message Format
+
+* Each packet is a plain ASCII line: `<CMD> [ARG]\n`.
+* Commands use the tokens defined in `docs/impl/commands.md`.
+* Heartbeat from ESP is `PING\n`; Arduino responds with `PONG\n`.
+* Host software should time out if no response is received within one second.
+
 ---
 
 ## 🔒 Design Notes

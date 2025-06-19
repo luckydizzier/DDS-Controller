@@ -1,67 +1,82 @@
 package main
 
 import (
-    "fyne.io/fyne/v2/app"
-    "fyne.io/fyne/v2/container"
-    "fyne.io/fyne/v2/widget"
+	"fmt"
+	"path/filepath"
+
+	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/widget"
 )
 
 const (
-    cmdSetFreq = "SF"
-    cmdGetFreq = "GF"
-    cmdSetWave = "SW"
-    cmdGetWave = "GW"
+	cmdSetFreq = "SF"
+	cmdGetFreq = "GF"
+	cmdSetWave = "SW"
+	cmdGetWave = "GW"
 )
 
 func main() {
-    a := app.New()
-    w := a.NewWindow("DDS Controller")
+	a := app.New()
+	w := a.NewWindow("DDS Controller")
 
-    bridge := &SerialBridge{}
+	bridge := &SerialBridge{}
 
-    portEntry := widget.NewEntry()
-    portEntry.SetText("/dev/ttyACM0")
-    status := widget.NewLabel("Disconnected")
+	cfgPath := filepath.Join("..", "..", "config", "pins.conf")
+	pins := LoadPinsConfig(cfgPath)
+	espLabel := widget.NewLabel("ESP: disabled")
+	if pins["USE_ESP"] == "1" {
+		status := "no OTA"
+		if pins["USE_ESP_OTA"] == "1" {
+			status = "OTA"
+		}
+		espLabel.SetText(fmt.Sprintf("ESP: OK (%s)", status))
+	}
 
-    connectBtn := widget.NewButton("Connect", func() {
-        if err := bridge.Open(portEntry.Text, 115200); err == nil {
-            status.SetText("Connected")
-        } else {
-            status.SetText("Error")
-        }
-    })
+	portEntry := widget.NewEntry()
+	portEntry.SetText("/dev/ttyACM0")
+	status := widget.NewLabel("Disconnected")
 
-    freqEntry := widget.NewEntry()
-    freqEntry.SetText("1000000")
-    waveSelect := widget.NewSelect([]string{"0", "1", "2"}, func(string) {})
-    waveSelect.SetSelected("0")
+	connectBtn := widget.NewButton("Connect", func() {
+		if err := bridge.Open(portEntry.Text, 115200); err == nil {
+			status.SetText("Connected")
+		} else {
+			status.SetText("Error")
+		}
+	})
 
-    currentFreq := widget.NewLabel("Freq: -")
-    currentWave := widget.NewLabel("Wave: -")
+	freqEntry := widget.NewEntry()
+	freqEntry.SetText("1000000")
+	waveSelect := widget.NewSelect([]string{"0", "1", "2"}, func(string) {})
+	waveSelect.SetSelected("0")
 
-    setBtn := widget.NewButton("Set", func() {
-        bridge.Send(cmdSetFreq + " " + freqEntry.Text)
-        bridge.Send(cmdSetWave + " " + waveSelect.Selected)
-    })
+	currentFreq := widget.NewLabel("Freq: -")
+	currentWave := widget.NewLabel("Wave: -")
 
-    readBtn := widget.NewButton("Read", func() {
-        if resp, err := bridge.Send(cmdGetFreq); err == nil {
-            currentFreq.SetText(resp)
-        }
-        if resp, err := bridge.Send(cmdGetWave); err == nil {
-            currentWave.SetText(resp)
-        }
-    })
+	setBtn := widget.NewButton("Set", func() {
+		bridge.Send(cmdSetFreq + " " + freqEntry.Text)
+		bridge.Send(cmdSetWave + " " + waveSelect.Selected)
+	})
 
-    w.SetContent(container.NewVBox(
-        container.NewHBox(portEntry, connectBtn),
-        status,
-        container.NewHBox(widget.NewLabel("Freq"), freqEntry),
-        container.NewHBox(widget.NewLabel("Wave"), waveSelect),
-        container.NewHBox(setBtn, readBtn),
-        currentFreq,
-        currentWave,
-    ))
+	readBtn := widget.NewButton("Read", func() {
+		if resp, err := bridge.Send(cmdGetFreq); err == nil {
+			currentFreq.SetText(resp)
+		}
+		if resp, err := bridge.Send(cmdGetWave); err == nil {
+			currentWave.SetText(resp)
+		}
+	})
 
-    w.ShowAndRun()
+	w.SetContent(container.NewVBox(
+		container.NewHBox(portEntry, connectBtn),
+		status,
+		espLabel,
+		container.NewHBox(widget.NewLabel("Freq"), freqEntry),
+		container.NewHBox(widget.NewLabel("Wave"), waveSelect),
+		container.NewHBox(setBtn, readBtn),
+		currentFreq,
+		currentWave,
+	))
+
+	w.ShowAndRun()
 }

@@ -48,12 +48,14 @@ def test_invalid_freq(capsys, monkeypatch):
 
 def test_preset_save(capsys, monkeypatch):
     monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'preset-save', '1'])
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
     ddsctl.main()
     out = capsys.readouterr().out.strip()
     assert out == 'OK'
 
 def test_preset_load(capsys, monkeypatch):
     monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'preset-load', '1'])
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
     ddsctl.main()
     out = capsys.readouterr().out.strip()
     assert out == 'OK'

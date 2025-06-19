@@ -13,3 +13,7 @@ frequency and waveform using `SerialBridge`.
 The application relies on `SerialBridge.go` for communication. The mock-ups in
 `docs/design/pc_ui_mockups.md` served as reference for this initial
 implementation.
+
+Version 0.4.0 introduces a small status label showing whether the ESP8266 is
+present and if OTA mode is active. This information is read from
+`config/pins.conf` at startup and shown below the connection status.

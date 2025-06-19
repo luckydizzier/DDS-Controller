@@ -65,6 +65,8 @@
 │   ├── impl/                       # Implementation notes per module
 │   │   ├── DDSDriver.md
 │   │   └── ...
+│   ├── spec/                       # Interface specifications
+│   │   └── esp_protocol_sync.md
 │   └── prompts/                    # Generated prompts per agent
 │       ├── firmware_agent/
 │       ├── pc_agent/

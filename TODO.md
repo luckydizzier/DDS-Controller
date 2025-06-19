@@ -36,3 +36,4 @@
 - [DISPATCHED] (esp_agent, protocol_agent) Coordinate serial bridge message format and heartbeat timing
 - [DISPATCHED] (ui_agent, pc_agent) Align Web UI controls with Qt GUI
 - [DONE] (root_agent) Final ESP+UI integration audit (see docs/progress/2025-06-19_root_audit_esp_ui.md)
+- [DONE] (timeline_agent) Milestone v0.4.0 summary dispatched (docs/reports/milestone_v0.4.0_summary.md)

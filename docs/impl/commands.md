@@ -16,3 +16,6 @@ implemented constants and their meaning.
 Commands for saving or loading presets continue to use the words `SAVE` and
 `LOAD`. The constants keep request strings short while responses still use the
 human-readable tokens documented in `command_spec.md`.
+
+Hardware pin names referenced here match the tables in
+[`docs/configuration/pins.md`](../configuration/pins.md).

@@ -7,3 +7,6 @@ During `setup()` it creates `LiquidCrystal`, `ButtonManager`, `EEPROMManager`, `
 The `loop()` function updates the menu system and checks the two serial ports for incoming commands. Each command is parsed by `CommandParser` and the response is sent back on the originating interface, enabling transparent USB or WiFi operation.
 
 Output on/off actions are handled via `MenuSystem` by toggling `OUTPUT_CONTROL_PIN`.
+
+For details on connecting and configuring the WiFi module see
+[`esp8266.md`](esp8266.md).

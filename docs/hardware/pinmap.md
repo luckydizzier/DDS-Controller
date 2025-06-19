@@ -11,8 +11,11 @@
 | 12              | AD9850 DDS        | DATA           | Serial data                        |
 | 13              | AD9850 DDS        | RESET          | Module reset                       |
 | 24              | ESP8266-01        | GPIO2          | WiFi status LED                    |
+| 26              | ESP8266-01        | GPIO0          | OTA LED or Arduino control |
 | 20              | ESP8266-01        | RX             | Connected to Due TX (SoftwareSerial) |
 | 21              | ESP8266-01        | TX             | Connected to Due RX (SoftwareSerial) |
 | 25              | DDS Output Enable | Control line   | Toggles DDS output                 |
 
 **Safety Notice:** The ESP8266-01 module operates at **3.3V** logic levels only. Connecting it directly to 5V will permanently damage the module.
+
+Connections for optional modules start from pin 20 upwards to avoid conflicts with the LCD shield.

@@ -15,7 +15,4 @@
 
 #define ESP_BAUD_RATE 9600
 
-// Optional pin for controlling ESP8266 GPIO0 when OTA is disabled
-#define PIN_ESP_GPIO0 26
-
 #endif // CONFIG_H

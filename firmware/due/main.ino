@@ -33,6 +33,7 @@ void setup() {
   esp_begin(espSerial, parser);
   pinMode(PIN_ESP_LED, OUTPUT);
 #if !USE_ESP_OTA
+  // Keep ESP8266 in normal boot mode when OTA is disabled
   pinMode(PIN_ESP_GPIO0, OUTPUT);
   digitalWrite(PIN_ESP_GPIO0, HIGH);
 #endif
@@ -49,6 +50,17 @@ void setup() {
 
 void loop() {
   menu.update();
+#ifdef USE_ESP
+  static unsigned long lastLedToggle = 0;
+  if (millis() - lastLedToggle > 1000) {
+    digitalWrite(PIN_ESP_LED, !digitalRead(PIN_ESP_LED));
+    lastLedToggle = millis();
+  }
+#if !USE_ESP_OTA
+  // Ensure the ESP remains in run mode when OTA is disabled
+  digitalWrite(PIN_ESP_GPIO0, HIGH);
+#endif
+#endif
 
   if (Serial.available()) {
     String cmd = Serial.readStringUntil('\n');

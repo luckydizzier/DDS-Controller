@@ -75,6 +75,10 @@ String CommandParser::handleCommand(const String& cmd) {
         esp_send(CMD_ESP_STATUS);
         return "OK:REQ";
     }
+    if (cmd == CMD_ESP_VERSION) {
+        esp_send(CMD_ESP_VERSION);
+        return "OK:REQ";
+    }
     if (cmd.rfind(CMD_ESP_MODE, 0) == 0) {
         esp_send(cmd);
         return "OK:MODE";
@@ -92,11 +96,11 @@ String CommandParser::handleCommand(const String& cmd) {
         return "ERR:ESP_DISABLED";
     }
 #endif
-    if (cmd == "STATUS") {
+    if (cmd == CMD_STATUS) {
         return String("OK:FREQ ") + std::to_string(dds->getFrequency()) +
                " WAVE " + std::to_string(dds->getWaveform());
     }
-    if (cmd == "VERSION") {
+    if (cmd == CMD_VERSION) {
         return "OK:VERSION 0.0.1";
     }
     return "ERR:INVALID_COMMAND";

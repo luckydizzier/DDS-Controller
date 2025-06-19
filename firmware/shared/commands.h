@@ -14,17 +14,22 @@
 #define CMD_OUTPUT_ON  "ON"
 #define CMD_OUTPUT_OFF "OFF"
 
+// Diagnostic commands
+#define CMD_STATUS  "STATUS"
+#define CMD_VERSION "VERSION"
+
 // Preset management
 #define CMD_SAVE   "SAVE"   // Save to EEPROM or preset slot
 #define CMD_LOAD   "LOAD"   // Load from EEPROM or preset slot
 #define CMD_DELETE "DELETE" // Delete preset slot
 
-// ESP8266 control commands
-#define CMD_ESP_ON      "ESPON"
-#define CMD_ESP_OFF     "ESPOFF"
-#define CMD_ESP_STATUS  "ESPSTS"
-#define CMD_ESP_MODE    "ESPMODE"
-#define CMD_ESP_LED_ON  "ESPLEDON"
-#define CMD_ESP_LED_OFF "ESPLEDOFF"
+// ESP8266 control commands (all prefixed with 'E')
+#define CMD_ESP_ON       "EON"
+#define CMD_ESP_OFF      "EOF"
+#define CMD_ESP_STATUS   "EST"
+#define CMD_ESP_VERSION  "EVR"
+#define CMD_ESP_MODE     "EMD"
+#define CMD_ESP_LED_ON   "EL1"
+#define CMD_ESP_LED_OFF  "EL0"
 
 #endif // SHARED_COMMANDS_H

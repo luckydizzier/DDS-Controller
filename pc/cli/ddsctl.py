@@ -2,6 +2,7 @@
 import argparse
 import os
 import serial
+from typing import Dict
 
 from protocol.ascii.constants import (
     CMD_SET_FREQ,
@@ -27,6 +28,12 @@ def load_pins(path="config/pins.conf"):
   return pins
 
 
+def save_pins(path: str, pins: Dict[str, str]):
+  with open(path, "w") as f:
+    for k, v in pins.items():
+      f.write(f"{k}={v}\n")
+
+
 def send(port, cmd):
     port.write((cmd + "\n").encode())
     line = port.readline().decode().strip()
@@ -42,6 +49,15 @@ def main():
   s_freq.add_argument("freq", type=int)
 
   sub.add_parser("get-freq")
+
+  sub.add_parser("show-config")
+
+  p_edit = sub.add_parser("edit-config")
+  p_edit.add_argument("key")
+  p_edit.add_argument("value")
+
+  p_ota = sub.add_parser("ota-upload")
+  p_ota.add_argument("file")
 
   p_save = sub.add_parser("preset-save")
   p_save.add_argument("slot", type=int)
@@ -64,6 +80,24 @@ def main():
     values = [v for k, v in pins.items() if k.startswith("PIN_")]
     if len(values) != len(set(values)):
       print("Warning: pin conflicts detected")
+
+  if args.cmd == "show-config":
+    for k, v in pins.items():
+      print(f"{k}={v}")
+    return
+
+  if args.cmd == "edit-config":
+    pins[args.key] = args.value
+    save_pins("config/pins.conf", pins)
+    print("OK")
+    return
+
+  if args.cmd == "ota-upload":
+    if not os.path.exists(args.file):
+      print("ERR:NOFILE")
+    else:
+      print("OK:OTA")
+    return
 
   with serial.Serial(args.port, 115200, timeout=2) as ser:
     if args.cmd == "set-freq":

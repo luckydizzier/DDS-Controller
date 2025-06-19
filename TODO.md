@@ -32,3 +32,6 @@
 - [DISPATCHED] (timeline_agent) Record coverage progress and version tags
 - [DISPATCHED] (docs_agent) Prepare CHANGELOG.md for v0.4.0
 - [DISPATCHED] (timeline_agent) Log milestone v0.4.0 kickoff
+
+- [DISPATCHED] (esp_agent, protocol_agent) Coordinate serial bridge message format and heartbeat timing
+- [DISPATCHED] (ui_agent, pc_agent) Align Web UI controls with Qt GUI

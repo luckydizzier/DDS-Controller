@@ -38,7 +38,7 @@
 - [DONE] (root_agent) Final ESP+UI integration audit (see docs/progress/2025-06-19_root_audit_esp_ui.md)
 - [DONE] (timeline_agent) Milestone v0.4.0 summary dispatched (docs/reports/milestone_v0.4.0_summary.md)
 - [DONE] (pc_agent) OTA and config CLI/GUI support (see docs/progress/2025-06-19_09-00-00_pc_agent_ota_config.md)
-- [TODO] (timeline_agent) Create docs/versions/v0.4.0.md recording milestone kickoff details
-- [TODO] (esp_agent, protocol_agent, pc_agent, ui_agent) Provide progress logs for coordination prompts issued 2025-06-18 17:52
-- [TODO] (docs_agent) Finalize CHANGELOG.md for v0.4.0 and log completion
-- [TODO] (firmware_agent) Provide progress log for ESP bridge integration prompt (2025-06-18_17-43-41_v0.4.0_plan.md)
+- [DISPATCHED] (timeline_agent) Create docs/versions/v0.4.0.md recording milestone kickoff details
+- [DISPATCHED] (esp_agent, protocol_agent, pc_agent, ui_agent) Provide progress logs for coordination prompts issued 2025-06-18 17:52
+- [DISPATCHED] (docs_agent) Finalize CHANGELOG.md for v0.4.0 and log completion
+- [DISPATCHED] (firmware_agent) Provide progress log for ESP bridge integration prompt (2025-06-18_17-43-41_v0.4.0_plan.md)

@@ -9,3 +9,12 @@
 - [x] ~~Web UI~~ *(canceled)* ([note](docs/progress/2025-06-18_10-33_placeholder_audit.md))
 - [x] EEPROM preset handling ([log](docs/progress/2025-06-18_07-42-12_firmware_agent_presets.md))
 - [PLANNED] Milestone v0.4.0 kickoff – expand remote control, web UI and testing
+
+## v0.4.0 – Remote Control Expansion (PLANNED)
+- Kickoff: 2025-06-18
+- Goals:
+  - Implement ESP8266 WiFi bridge with heartbeat
+  - Provide minimal Web UI
+  - Extend firmware↔ESP integration tests
+  - Start project CHANGELOG
+- Related Dispatch: [root_agent](docs/progress/2025-06-18_17-43-41_root_agent_v0.4.0_dispatch.md)

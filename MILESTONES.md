@@ -12,9 +12,10 @@
 
 ## v0.4.0 – Remote Control Expansion (PLANNED)
 - Kickoff: 2025-06-18
-- Goals:
-  - Implement ESP8266 WiFi bridge with heartbeat
-  - Provide minimal Web UI
-  - Extend firmware↔ESP integration tests
-  - Start project CHANGELOG
-- Related Dispatch: [root_agent](docs/progress/2025-06-18_17-43-41_root_agent_v0.4.0_dispatch.md)
+  - Goals:
+    - Implement ESP8266 WiFi bridge with heartbeat
+    - Provide minimal Web UI
+    - Extend firmware↔ESP integration tests
+    - Start project CHANGELOG
+    - Finalize ESP8266-01 wiring and OTA documentation
+  - Related Dispatch: [root_agent](docs/progress/2025-06-18_17-43-41_root_agent_v0.4.0_dispatch.md)

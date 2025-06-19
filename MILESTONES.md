@@ -9,6 +9,7 @@
 - [x] ~~Web UI~~ *(canceled)* ([note](docs/progress/2025-06-18_10-33_placeholder_audit.md))
 - [x] EEPROM preset handling ([log](docs/progress/2025-06-18_07-42-12_firmware_agent_presets.md))
 - [PLANNED] Milestone v0.4.0 kickoff – expand remote control, web UI and testing
+- [IN_PROGRESS] ESP+UI hardware coordination ([log](docs/progress/2025-06-19_root_audit_esp_ui.md))
 
 ## v0.4.0 – Remote Control Expansion (PLANNED)
 - Kickoff: 2025-06-18

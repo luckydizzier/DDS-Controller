@@ -17,28 +17,28 @@
 - [DISPATCHED] (timeline_agent) Confirm final sync state and update version history if needed (see docs/progress/2025-06-18_17-07-02_root_agent_final_sync.md)
 - [DISPATCHED] (task_agent) Verify TODO statuses after sync
 - [DISPATCHED] (pc_agent) Confirm final CLI/GUI test coverage
-- [DISPATCHED] (firmware_agent) Finalize firmware logs and report status
-- [DISPATCHED] (esp_agent) Provide update on ESP protocol milestone
+- [DONE] (firmware_agent) Finalize firmware logs and report status
+- [DONE] (esp_agent) Provide update on ESP protocol milestone
 - [DONE] (root_agent) Summarize project closure in docs/reports/release_summary_v0.3.0.md
 
-- [DISPATCHED] (root_agent) Kick off milestone v0.4.0 planning
-- [DISPATCHED] (esp_agent) Implement bidirectional serial protocol and WiFi config
+- [DONE] (root_agent) Kick off milestone v0.4.0 planning
+- [DONE] (esp_agent) Implement bidirectional serial protocol and WiFi config
 - [DONE] (protocol_agent) Define command bridge and heartbeat messages (see docs/progress/2025-06-18_20-45_protocol_agent_esp_commands.md)
-- [DISPATCHED] (firmware_agent) Integrate ESP bridge with Arduino Due
-- [DISPATCHED] (ui_agent) Host minimal Web UI for real-time DDS control
-- [DISPATCHED] (docs_agent) Document Web UI and ESP configuration
+- [DONE] (firmware_agent) Integrate ESP bridge with Arduino Due
+- [DONE] (ui_agent) Host minimal Web UI for real-time DDS control
+- [DONE] (docs_agent) Document Web UI and ESP configuration
 - [DISPATCHED] (test_coverage_agent) Add integration tests for firmware-ESP loop
-- [DISPATCHED] (pc_agent) Stub ESP responses and extend GUI unit tests
-- [DISPATCHED] (timeline_agent) Record coverage progress and version tags
-- [DISPATCHED] (docs_agent) Prepare CHANGELOG.md for v0.4.0
-- [DISPATCHED] (timeline_agent) Log milestone v0.4.0 kickoff
+- [DONE] (pc_agent) Stub ESP responses and extend GUI unit tests
+- [DONE] (timeline_agent) Record coverage progress and version tags
+- [DONE] (docs_agent) Prepare CHANGELOG.md for v0.4.0
+- [DONE] (timeline_agent) Log milestone v0.4.0 kickoff
 
-- [DISPATCHED] (esp_agent, protocol_agent) Coordinate serial bridge message format and heartbeat timing
-- [DISPATCHED] (ui_agent, pc_agent) Align Web UI controls with Qt GUI
+- [DONE] (esp_agent, protocol_agent) Coordinate serial bridge message format and heartbeat timing
+- [DONE] (ui_agent, pc_agent) Align Web UI controls with Qt GUI
 - [DONE] (root_agent) Final ESP+UI integration audit (see docs/progress/2025-06-19_root_audit_esp_ui.md)
 - [DONE] (timeline_agent) Milestone v0.4.0 summary dispatched (docs/reports/milestone_v0.4.0_summary.md)
 - [DONE] (pc_agent) OTA and config CLI/GUI support (see docs/progress/2025-06-19_09-00-00_pc_agent_ota_config.md)
-- [DISPATCHED] (timeline_agent) Create docs/versions/v0.4.0.md recording milestone kickoff details
-- [DISPATCHED] (esp_agent, protocol_agent, pc_agent, ui_agent) Provide progress logs for coordination prompts issued 2025-06-18 17:52
-- [DISPATCHED] (docs_agent) Finalize CHANGELOG.md for v0.4.0 and log completion
-- [DISPATCHED] (firmware_agent) Provide progress log for ESP bridge integration prompt (2025-06-18_17-43-41_v0.4.0_plan.md)
+- [DONE] (timeline_agent) Create docs/versions/v0.4.0.md recording milestone kickoff details
+- [DONE] (esp_agent, protocol_agent, pc_agent, ui_agent) Provide progress logs for coordination prompts issued 2025-06-18 17:52
+- [DONE] (docs_agent) Finalize CHANGELOG.md for v0.4.0 and log completion
+- [DONE] (firmware_agent) Provide progress log for ESP bridge integration prompt (2025-06-18_17-43-41_v0.4.0_plan.md)

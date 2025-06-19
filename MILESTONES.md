@@ -8,10 +8,10 @@
 - [DISPATCHED] ESP protocol implementation ([log](docs/progress/2025-06-18_16-31-18_root_agent_dispatch_esp_protocol.md))
 - [x] ~~Web UI~~ *(canceled)* ([note](docs/progress/2025-06-18_10-33_placeholder_audit.md))
 - [x] EEPROM preset handling ([log](docs/progress/2025-06-18_07-42-12_firmware_agent_presets.md))
-- [IN_PROGRESS] Milestone v0.4.0 kickoff – expand remote control, web UI and testing
-- [IN_PROGRESS] ESP+UI hardware coordination ([log](docs/progress/2025-06-19_root_audit_esp_ui.md))
+- [x] Milestone v0.4.0 kickoff – expand remote control, web UI and testing
+- [x] ESP+UI hardware coordination ([log](docs/progress/2025-06-19_root_audit_esp_ui.md))
 
-## v0.4.0 – Remote Control Expansion (IN_PROGRESS)
+## v0.4.0 – Remote Control Expansion (Complete)
 - Kickoff: 2025-06-18
   - Goals:
     - Implement ESP8266 WiFi bridge with heartbeat

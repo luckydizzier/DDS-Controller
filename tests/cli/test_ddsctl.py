@@ -93,3 +93,35 @@ def test_ota_upload(capsys, monkeypatch, tmp_path):
     ddsctl.main()
     out = capsys.readouterr().out.strip()
     assert 'OK:OTA' in out
+
+def test_ota_upload_missing(capsys, monkeypatch):
+    monkeypatch.setenv('DDSCTL_QUIET', '1')
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', 'ota-upload', 'missing.bin'])
+    ddsctl.main()
+    out = capsys.readouterr().out.strip()
+    assert 'ERR:NOFILE' in out
+
+def test_send_helper():
+    ser = FakeSerial()
+    resp = ddsctl.send(ser, 'PING')
+    assert resp == 'OK'
+    assert ser.last == b'PING\n'
+
+def test_esp_warnings(capsys, monkeypatch):
+    pins = {'USE_ESP': '1', 'PIN_ESP_RX': '5', 'PIN_DDS_WCLK': '10', 'PIN_ESP_TX': '5'}
+    monkeypatch.delenv('DDSCTL_QUIET', raising=False)
+    monkeypatch.setattr(ddsctl, 'load_pins', lambda path='config/pins.conf': pins)
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', '--port', '/dev/null', 'set-freq', '1'])
+    ddsctl.main()
+    out = capsys.readouterr().out
+    assert 'ESP detected' in out
+    assert 'Warning: PIN_ESP_TX undefined' not in out  # already defined
+    assert 'Warning: pin conflicts detected' in out
+
+def test_missing_config_warning(capsys, monkeypatch):
+    monkeypatch.delenv('DDSCTL_QUIET', raising=False)
+    monkeypatch.setattr(ddsctl.os.path, 'exists', lambda p: False)
+    monkeypatch.setattr(sys, 'argv', ['ddsctl', 'show-config'])
+    ddsctl.main()
+    out = capsys.readouterr().out
+    assert 'Warning' in out

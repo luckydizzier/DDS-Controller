@@ -12,6 +12,11 @@ int main() {
     d.setFrequency(1000000u);
     assert(d.getFrequency() == 1000000u);
 
+    d.setFrequency(4321.0);
+    assert(d.getFrequency() == 4321u);
+    d.setWaveform(2);
+    assert(d.getWaveform() == 2);
+
     EEPROMManager e;
     CommandParser p;
     p.begin(d, e);
